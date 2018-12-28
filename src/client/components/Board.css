@@ -1,0 +1,11 @@
+.board
+{
+    display: flex;
+    flex-direction: column;
+    background-color: lightgrey;
+    padding: 1px;
+}
+
+.row {
+    display: flex;
+}
