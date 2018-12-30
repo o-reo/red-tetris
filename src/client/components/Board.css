@@ -6,6 +6,7 @@
     padding: 1px;
 }
 
-.row {
+.row
+{
     display: flex;
 }

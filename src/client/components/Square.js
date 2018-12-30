@@ -1,15 +1,20 @@
 import React from 'react';
 import './Square.css';
 
-function renderSquare(id) {
-    if (Math.floor(id / 10) === 19) {
-        return (<div id={id} className="square red"></div>);
-    }
-    return (<div id={id} className="square"></div>);
+
+function changeColor(id) {
+    console.log('ID = ', id);
 }
 
-const Square = ({id}) => (
-    renderSquare(id)
+function renderSquare(id, color) {
+    if (color !== undefined && color === 'red') {
+        return (<div id={id} className="square red" onClick={() => changeColor(id)}></div>);
+    }
+    return (<div id={id} className="square" onClick={() => changeColor(id)}></div>);
+}
+
+const Square = ({id, color}) => (
+    renderSquare(id, color)
 );
 
 export default Square;

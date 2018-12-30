@@ -1,11 +1,18 @@
 import React from 'react';
 import Square from './Square.js';
 import './Board.css';
+import {createStore} from 'redux';
+import tetrisApp from "../reducers";
 
-const Board = () => (
+const store = createStore(tetrisApp);
+
+
+const Board = ({board}) => (
+
     <div className="board">
+        {store.getState()['tetris']['board'].map((square) => <Square/>)}
 
-        client/components/Board.css<div className="row"><Square id="0"/><Square id="1"/><Square id="2"/><Square id="3"/><Square id="4"/><Square id="5"/><Square id="6"/><Square id="7"/><Square id="8"/><Square id="9"/></div>
+        <div className="row"><Square id="0"/><Square id="1"/><Square id="2"/><Square id="3"/><Square id="4"/><Square id="5"/><Square id="6"/><Square id="7"/><Square id="8"/><Square id="9"/></div>
         <div className="row"><Square id="10"/><Square id="11"/><Square id="12"/><Square id="13"/><Square id="14"/><Square id="15"/><Square id="16"/><Square id="17"/><Square id="18"/><Square id="19"/></div>
         <div className="row"><Square id="20"/><Square id="21"/><Square id="22"/><Square id="23"/><Square id="24"/><Square id="25"/><Square id="26"/><Square id="27"/><Square id="28"/><Square id="29"/></div>
         <div className="row"><Square id="30"/><Square id="31"/><Square id="32"/><Square id="33"/><Square id="34"/><Square id="35"/><Square id="36"/><Square id="37"/><Square id="38"/><Square id="39"/></div>
