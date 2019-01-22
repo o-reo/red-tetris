@@ -1,20 +1,26 @@
 import React from 'react';
 import './Square.css';
+import {createStore} from 'redux';
+import tetrisApp from "../reducers";
+import {changeColor} from '../actions/changeColor.js';
+
+const store = createStore(tetrisApp);
+store.subscribe(() => console.log(store.getState()));
 
 
-function changeColor(id) {
-    console.log('ID = ', id);
+function handleClick(row, column) {
+    console.log('Row = ', row, ' column = ', column);
+    store.dispatch(changeColor(row * 10 + column, "red"));
 }
 
-function renderSquare(id, color) {
-    if (color !== undefined && color === 'red') {
-        return (<div id={id} className="square red" onClick={() => changeColor(id)}></div>);
-    }
-    return (<div id={id} className="square" onClick={() => changeColor(id)}></div>);
-}
+function Square(props) {
+    let color = props.value.color;
+    let row = props.row;
+    let column = props.column;
 
-const Square = ({id, color}) => (
-    renderSquare(id, color)
-);
+    return (
+        <div className={`square ${ color }`}  onClick={() => handleClick(row, column)}></div>
+    );
+}
 
 export default Square;

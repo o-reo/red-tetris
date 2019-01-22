@@ -1,26 +1,24 @@
 import { combineReducers } from 'redux';
+import { CHANGE_COLOR } from '../actions/changeColor.js';
 
 function initialState() {
     return {
-        board: Array(200).fill({color: "white", type: "static"}),
+        board: Array(200).fill({color: ""}),
         current: null
     }
 }
 
-function refreshBoard(state) {
+function modifySquare(state, index, color) {
     let newState = Object.assign({}, state);
-    state.board[4] = {color: "red", type: "movin"};
-    state.board[14] = {color: "red", type: "movin"};
-    state.board[24] = {color: "red", type: "movin"};
-    state.board[34] = {color: "red", type: "movin"};
-    return newState;
+    newState.board[index] = {color: color};
+    return (newState);
 }
 
-function tetris(state = initialState(), action) {
+function game(state = initialState(), action) {
     switch (action.type) {
-        case 'create_tetri':
+        case CHANGE_COLOR:
         {
-            return refreshBoard(state);
+            return modifySquare(state, action.index, action.color);
         }
         default:
             return state;
@@ -28,7 +26,7 @@ function tetris(state = initialState(), action) {
 }
 
 const tetrisApp = combineReducers({
-    tetris
+    game
 });
 
 export default tetrisApp;
