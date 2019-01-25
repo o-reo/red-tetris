@@ -1,7 +1,8 @@
 .board
 {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    width: 270px;
     background-color: lightgrey;
     padding: 1px;
 }

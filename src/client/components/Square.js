@@ -1,26 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import './Square.css';
-import {createStore} from 'redux';
-import tetrisApp from "../reducers";
-import {changeColor} from '../actions/changeColor.js';
+import { changeColor } from "../actions/changeColor";
 
-const store = createStore(tetrisApp);
-store.subscribe(() => console.log(store.getState()));
-
-
-function handleClick(row, column) {
-    console.log('Row = ', row, ' column = ', column);
-    store.dispatch(changeColor(row * 10 + column, "red"));
-}
-
-function Square(props) {
-    let color = props.value.color;
-    let row = props.row;
-    let column = props.column;
-
+const Square = ({index, color, dispatch}) => {
     return (
-        <div className={`square ${ color }`}  onClick={() => handleClick(row, column)}></div>
+        <div
+            className={`square ${ color }`}
+            onClick={() => dispatch(changeColor(index, "red"))}
+        >
+        </div>
     );
-}
+};
 
-export default Square;
+export default connect()(Square);

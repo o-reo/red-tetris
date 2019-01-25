@@ -1,15 +1,15 @@
 import React from 'react';
-import {render} from 'react-dom';
-import {Provider} from 'react-redux';
-import {createStore} from 'redux';
-import tetrisApp from './reducers/index.js'
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import rootReducer from './reducers/index.js';
 import App from './components/App.js';
 
-const store = createStore(tetrisApp);
+const store = createStore(rootReducer);
 
 render(
    <Provider store={store}>
-        < App/>
+        <App />
     </Provider>,
     document.getElementById('root')
 );

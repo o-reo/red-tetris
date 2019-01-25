@@ -8,9 +8,11 @@ function initialState() {
     }
 }
 
-function modifySquare(state, index, color) {
+function modifySquare(state, action) {
     let newState = Object.assign({}, state);
-    newState.board[index] = {color: color};
+    let newBoard = Object.assign([], state.board);
+    newBoard[action.index] = {color: action.color};
+    newState.board = newBoard;
     return (newState);
 }
 
@@ -18,15 +20,15 @@ function game(state = initialState(), action) {
     switch (action.type) {
         case CHANGE_COLOR:
         {
-            return modifySquare(state, action.index, action.color);
+            return modifySquare(state, action);
         }
         default:
+        {
             return state;
+        }
     }
 }
 
-const tetrisApp = combineReducers({
+export default combineReducers({
     game
 });
-
-export default tetrisApp;
