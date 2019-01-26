@@ -7,6 +7,12 @@ import App from './components/App.js';
 
 const store = createStore(rootReducer);
 
+// setInterval(function() {console.log('test')}, 1000);
+
+// document.addEventListener('keydown', (event) =>
+//     console.log(event)
+// );
+
 render(
    <Provider store={store}>
         <App />

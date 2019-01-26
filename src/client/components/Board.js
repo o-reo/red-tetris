@@ -2,7 +2,7 @@ import React from 'react';
 import './Board.css';
 import Square from "./Square";
 
-const Board = (board) => {
+function Board(board) {
     return (
         <div className="board">
             {
@@ -15,6 +15,6 @@ const Board = (board) => {
             }
         </div>
     );
-};
+}
 
 export default Board;
