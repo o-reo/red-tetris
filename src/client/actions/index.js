@@ -6,10 +6,10 @@ export function movePiece(direction) {
     return ({type: MOVE_PIECE, direction});
 }
 
-export function createPiece(position, color) {
-    return ({type: CREATE_PIECE, position, color})
+export function createPiece() {
+    return ({type: CREATE_PIECE})
 }
 
-export function rotatePiece(indexRotation, rotation) {
-    return ({type: ROTATE_PIECE, rotation})
+export function rotatePiece() {
+    return ({type: ROTATE_PIECE})
 }
