@@ -92,11 +92,10 @@ const pieces = [
 ];
 
 export function createPiece(state) {
-    const i = 1;
-
-
+    const i = Math.floor(Math.random() * Math.floor(7));
     let newState = Object.assign({}, state);
     let piece = {};
+
     piece.position = Object.assign([], pieces[i].position);
     piece.color = pieces[i].color;
     piece.rotation = pieces[i].rotation;

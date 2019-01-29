@@ -1,28 +1,39 @@
-var badPosition = {};
+function againstSide(side)
+{
+    return ({type: "againstSide", side: side});
+}
 
 function checkNewPosition(oldPosition, newPosition) {
     try {
         newPosition.forEach(function (position) {
-            console.log(position);
-            if (position.row < 0 || position.row > 19 || position.column < 0 || position.column > 9) {
-                throw badPosition;
+            if (position.row < 0) {
+                throw againstSide("top");
+            }
+            else if (position.row > 19) {
+                throw againstSide("bottom");
+            }
+            else if (position.column < 0) {
+                throw againstSide("left");
+            }
+            else if (position.column > 9) {
+                throw againstSide("right");
             }
         });
     } catch (e) {
-        if (e !== badPosition) {
-            throw e;
-        }
-        return (false);
+        return (e);
     }
     return (true);
 }
 
-export function displacePiece(state, direction) {
+export function movePiece(state, direction) {
     let newState = Object.assign({}, state);
     let newCurrent = Object.assign({}, state.current);
     let newPosition = state.current.position.map(function (pos) {
         if (direction === 'down') {
             return ({column: pos.column, row: pos.row + 1});
+        }
+        if (direction === 'up') {
+            return ({column: pos.column, row: pos.row - 1});
         }
         if (direction === 'left') {
             return ({column: pos.column - 1, row: pos.row});
@@ -43,13 +54,14 @@ export function displacePiece(state, direction) {
 
 
 export function rotatePiece(state) {
+    let error;
     let newState = Object.assign({}, state);
     let newCurrent = Object.assign({}, state.current);
     const rotation = state.current.rotation[state.current.indexRotation - 1];
     let newPosition = state.current.position.map(function (pos, index) {
         return ({column: pos.column + rotation[index].column, row: pos.row + rotation[index].row});
     });
-    if (checkNewPosition(state.current.position, newPosition) === true) {
+    if ((error = checkNewPosition(state.current.position, newPosition)) === true) {
         if (newCurrent.indexRotation < 4) {
             newCurrent.indexRotation++;
         } else {
@@ -61,7 +73,30 @@ export function rotatePiece(state) {
         newState.current = newCurrent;
         return (newState);
     }
-    return (state);
+    else {
+        if (error.side === "left") {
+            console.log(error.side);
+            newState = movePiece(state, "right");
+            newState = rotatePiece(newState);
+        }
+        else if (error.side === "right") {
+            console.log(error.side);
+            newState = movePiece(state, "left");
+            newState = rotatePiece(newState);
+        }
+        else if (error.side === "top") {
+            console.log(error.side);
+            newState = movePiece(state, "down");
+            newState = rotatePiece(newState);
+
+        }
+        else if (error.side === "bottom") {
+            console.log(error.side);
+            newState = movePiece(state, "up");
+            newState = rotatePiece(newState);
+        }
+        return (newState);
+    }
 }
 
 

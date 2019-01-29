@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { MOVE_PIECE, CREATE_PIECE, ROTATE_PIECE } from '../actions/index.js';
 import { createPiece } from "./createPiece";
-import { displacePiece, rotatePiece } from "./displacePiece";
+import { movePiece, rotatePiece } from "./displacePiece";
 
 function initialState() {
     const board = Array(200).fill({color: "", state: 'free'});
@@ -21,7 +21,7 @@ function game(state = initialState(), action) {
             return createPiece(state);
         }
         case MOVE_PIECE: {
-            return displacePiece(state, action.direction);
+            return movePiece(state, action.direction);
         }
         case ROTATE_PIECE: {
             return rotatePiece(state);
