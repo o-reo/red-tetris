@@ -1,0 +1,13 @@
+{
+	"name": "nodejs_server",
+	"version": "1.0.0",
+	"description": "red-tetris docker server",
+	"author": "befuhro@student.le-101.fr",
+	"main": "server.js",
+	"scripts": {
+		"start" : "node server.js"
+	},
+	"dependencies" : {
+		"express": "^4.16.1"
+	}
+}
