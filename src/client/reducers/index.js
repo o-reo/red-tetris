@@ -19,7 +19,7 @@ function pieces(state = initialState(), action) {
     if (state.current === null) {
         return createPiece(state);
     }
-    else if (Math.floor(Date.now() / 100) - state.current.lastMove  > 5 && state.current.lastMove !== 0) {
+    else if (Math.floor(Date.now() / 100) - state.current.lastMove  > 8 && state.current.lastMove !== 0) {
         return createPiece(state);
     }
     else {
