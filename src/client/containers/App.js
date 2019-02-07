@@ -24,7 +24,7 @@ function handleDispatch(dispatch) {
     document.addEventListener('keydown', (event) => handleKey(event, dispatch));
     setInterval(function () {
         dispatch(movePiece('down'))
-    }, 400);
+    }, 300);
 }
 
 function mapStateToProps(state) {
