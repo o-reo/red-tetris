@@ -5,12 +5,9 @@ export const RIGHT = 'right';
 export const AGAINSTSIDE = 'againstSide';
 export const ALREADYTAKEN = "alreadyTaken";
 
-function positionWrong(type, side)
-{
-    return ({type: type, side: side});
-}
+const positionWrong = (type, side) => ({type: type, side: side});
 
-export function checkNewPosition(oldPosition, newPosition, board) {
+export const checkNewPosition = (oldPosition, newPosition, board) => {
     try {
         newPosition.forEach(function (position) {
             if (position.row < 0) {
@@ -33,9 +30,9 @@ export function checkNewPosition(oldPosition, newPosition, board) {
         return (e);
     }
     return (true);
-}
+};
 
-export function movePiece(state, direction) {
+export const movePiece = (state, direction) => {
     let newState = Object.assign({}, state);
     let newCurrent = Object.assign({}, state.current);
     let newPosition = state.current.position.map(function (pos) {
@@ -60,4 +57,4 @@ export function movePiece(state, direction) {
         newState.current = newCurrent;
     }
     return (newState);
-}
+};

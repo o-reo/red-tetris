@@ -4,7 +4,7 @@ import { createPiece } from "./createPiece";
 import { movePiece } from "./movePiece";
 import { rotatePiece } from "./rotatePiece";
 
-function initialState() {
+const initialState = () => {
     const board = Array(200).fill({color: ""});
     return {
         board: board.map(function(square, index) {
@@ -13,13 +13,13 @@ function initialState() {
         }),
         current: null
     }
-}
+};
 
-function pieces(state = initialState(), action) {
+const pieces = (state = initialState(), action) => {
     if (state.current === null) {
         return createPiece(state);
     }
-    else if (Math.floor(Date.now() / 100) - state.current.lastMove  > 8 && state.current.lastMove !== 0) {
+    else if (Math.floor(Date.now() / 100) - state.current.lastMove  > 5 && state.current.lastMove !== 0) {
         return createPiece(state);
     }
     else {
@@ -39,7 +39,7 @@ function pieces(state = initialState(), action) {
         }
 
     }
-}
+};
 
 export default combineReducers({
     pieces

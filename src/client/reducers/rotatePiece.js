@@ -1,7 +1,7 @@
 import { checkNewPosition, movePiece } from "./movePiece";
 import { TOP, BOTTOM, LEFT, RIGHT, ALREADYTAKEN } from "./movePiece";
 
-export function rotatePiece(state) {
+export const rotatePiece = (state) => {
     let error;
     let newState = Object.assign({}, state);
     let newCurrent = Object.assign({}, state.current);
@@ -51,4 +51,4 @@ export function rotatePiece(state) {
         }
         return (newState);
     }
-}
+};

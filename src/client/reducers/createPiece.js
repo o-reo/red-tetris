@@ -91,7 +91,7 @@ const pieces = [
     }
 ];
 
-function putCurrentToBoard(board, current) {
+const putCurrentToBoard = (board, current) => {
     if (current !== null) {
         let newBoard = Object.assign([], board);
         current.position.forEach(function (pos) {
@@ -101,106 +101,73 @@ function putCurrentToBoard(board, current) {
     } else {
         return (board);
     }
-}
+};
 
-
-function rowIsComplete(row) {
-    for (let i = 0; i < 10; i++) {
-        if (row.color === "") {
-            return (false);
-        }
-    }
-    return (true);
-}
-
-
-function lookForCompleteRow(board) {
+const getUncompletedRows = (board) => {
     let rows = [];
     let complete = true;
     board.forEach(function (square, index) {
         if (square.color === "") {
-            complete = false;
+            complete = true;
         }
         if (index % 10 === 9) {
             if (complete === true) {
                 rows.push(Math.floor(index / 10));
             }
-            complete = true;
+            complete = false;
         }
     });
     return (rows.reverse());
-}
+};
 
-
-function createReplacementArray(completeRows) {
-    let rowsToShift = 0;
-    let array = Array(20).fill({});
-    array = array.map(function (row, index) {
-        return ({index: index, rowsToShift: 0});
+const createShiftingArray = (uncompletedRows) => {
+    let array = Array(20).fill({}).map(function (x, index) {
+        return({index: 19 - index, shiftWith: -1});
     });
-    array = array.reverse().map(function (row) {
-        if (completeRows.includes(row.index) === false) {
-            row.rowsToShift = rowsToShift;
-        } else {
-            row.rowsToShift = 0;
-            rowsToShift++;
+    for (let i = 0; i < uncompletedRows.length; i++) {
+        if (uncompletedRows[i] !== array[i].index) {
+            array[i].shiftWith = uncompletedRows[i];
         }
-        return (row);
-    });
-    return (array.reverse());
-}
-
-function emptyRows(board, replacementArray) {
-    board.forEach(function (square) {
-        let rowsToShift = replacementArray[square.row].rowsToShift;
-        if (rowsToShift !== 0) {
-            if (square.row - rowsToShift >= 0) {
-                board[(square.row * 10 + 10) + square.column].color = board[((square.row - rowsToShift) * 10 + 10) + square.column].color;
-
-                // console.log('index src = ', ((square.row - rowsToShift) * 10 + 10) + square.column, '\tindex dest = ', (square.row * 10 + 10) + square.column);
-                // console.log('index dest = ', (square.row * 10 + 10) + square.column, '\t\tindex origin = ', ((square.row - rowsToShift) * 10 + 10) + square.column);
-
-            } else {
-                board[(square.row * 10) + square.column].color = "";
-                // console.log('blank index = ', (square.row * 10) + square.column);
-            }
-
+        else {
+            array[i].shiftWith = array[i].index;
         }
+    }
+    return (array);
+};
+
+const emptyCompleteRows = (shiftingArray, board) => {
+    board.reverse();
+    board = board.map(function (square) {
+        const shiftWith = shiftingArray[19 - square.row].shiftWith;
+        if (square.row !== shiftWith && shiftWith !== -1) {
+            square.color = board[((20 - shiftWith) * 10) - square.column - 1].color;
+        }
+        else if (shiftWith === -1) {
+                square.color = "";
+        }
+        return (square);
     });
-    return (board.reverse());
-}
+    board.reverse();
+    return (board);
+};
 
-
-export function createPiece(state) {
+export const createPiece = (state) => {
     const i = Math.floor(Math.random() * Math.floor(7));
-    // const i = 1;
     let newState = Object.assign({}, state);
     let newBoard = putCurrentToBoard(state.board, state.current);
-    const completeRows = lookForCompleteRow(newBoard);
+    const uncompletedRows = getUncompletedRows(newBoard);
     let piece = {};
 
-    if (completeRows.length !== 0) {
-        const replacementArray = createReplacementArray(completeRows);
-        newBoard = emptyRows(newBoard.reverse(), replacementArray);
-
-
-        piece.position = Object.assign([], pieces[i].position);
-        piece.color = pieces[i].color;
-        piece.rotation = pieces[i].rotation;
-        piece.indexRotation = pieces[i].indexRotation;
-        piece.lastMove = 0;
-        newState.current = piece;
-        newState.board = newBoard;
-        return (newState);
+    if (uncompletedRows.length !== 20) {
+        const shiftingArray = createShiftingArray(uncompletedRows);
+        newBoard = emptyCompleteRows(shiftingArray, newBoard);
     }
-    else {
-        piece.position = Object.assign([], pieces[i].position);
-        piece.color = pieces[i].color;
-        piece.rotation = pieces[i].rotation;
-        piece.indexRotation = pieces[i].indexRotation;
-        piece.lastMove = 0;
-        newState.current = piece;
-        newState.board = newBoard;
-        return (newState);
-    }
-}
+    piece.position = Object.assign([], pieces[i].position);
+    piece.color = pieces[i].color;
+    piece.rotation = pieces[i].rotation;
+    piece.indexRotation = pieces[i].indexRotation;
+    piece.lastMove = 0;
+    newState.current = piece;
+    newState.board = newBoard;
+    return (newState);
+};
