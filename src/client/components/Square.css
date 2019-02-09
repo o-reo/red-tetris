@@ -1,42 +1,45 @@
 .square
 {
+    opacity: 1;
     height: 25px;
     width: 25px;
     background-color: white;
-    margin: 1px;
+    border-style: outset;
+    border-width: 1px;
+    border-color: aliceblue;
 }
 
 .red
 {
-    background-color: darkred;
+    background-color: #e1352b;
 }
 
 .dark-blue
 {
-    background-color: darkblue;
+    background-color: #1b71b9;
 }
 
 .yellow
 {
-    background-color: #ffdf22;
+    background-color: #fef03b;
 }
 
 .green
 {
-    background-color: green;
+    background-color: #91f560;
 }
 
 .orange
 {
-    background-color: darkorange;
+    background-color: #ff8600;
 }
 
 .light-blue
 {
-    background-color: lightblue;
+    background-color: #62e3e1;
 }
 
 .purple
 {
-    background-color: purple;
+    background-color: #7414b9;
 }

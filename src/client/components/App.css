@@ -1,6 +1,33 @@
+body {
+    background-image: url("../assets/background.jpg");
+    background-size: auto 1255px;
+}
+
 #root
 {
     font-weight: bold;
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+#app
+{
+    margin-top: 20px;
+    background-color: #0b1423;
+    padding: 20px 20px 20px 20px;
+    border-color: #0b1423;
+    border-width: 20px;
+    border-style: outset;
+}
+
+h1
+{
+    text-shadow: 0px 0px 5px #fff177;
+    margin-bottom: 10px;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 500;
+    font-size:55px;
+    text-align: center;
+    color: aliceblue;
 }

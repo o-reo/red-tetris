@@ -3,6 +3,10 @@
     display: flex;
     flex-wrap: wrap;
     width: 270px;
-    background-color: lightgrey;
-    padding: 1px;
+    background-color: #d2dae1;
+    border-color: #163f6e;
+    border-width: 20px;
+    border-radius: 15px 15px 0 0;
+    border-style: outset;
+    opacity: 1;
 }
