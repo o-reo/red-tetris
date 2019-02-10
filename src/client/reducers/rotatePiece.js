@@ -24,28 +24,23 @@ export const rotatePiece = (state) => {
     }
     else {
         if (error.side === LEFT) {
-            console.log(error.side);
             newState = movePiece(state, "right");
             newState = movePiece(newState);
         }
         else if (error.side === RIGHT) {
-            console.log(error.side);
             newState = movePiece(state, "left");
             newState = movePiece(newState);
         }
         else if (error.side === TOP) {
-            console.log(error.side);
             newState = movePiece(state, "down");
             newState = movePiece(newState);
 
         }
         else if (error.side === BOTTOM) {
-            console.log(error.side);
             newState = movePiece(state, "up");
             newState = movePiece(newState);
         }
         else if (error.type === ALREADYTAKEN) {
-            console.log(error.side);
             newState = movePiece(state, "up");
             newState = movePiece(newState);
         }

@@ -5,7 +5,7 @@ import { movePiece } from "./movePiece";
 import { rotatePiece } from "./rotatePiece";
 
 const initialState = () => {
-    const board = Array(200).fill({color: ""});
+    const board = Array(200).fill({color: "white"});
     return {
         board: board.map(function(square, index) {
             const coord = {row: Math.floor(index / 10), column: index % 10};
@@ -41,6 +41,4 @@ const pieces = (state = initialState(), action) => {
     }
 };
 
-export default combineReducers({
-    pieces
-});
+export default combineReducers({pieces});

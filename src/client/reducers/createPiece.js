@@ -22,7 +22,7 @@ const pieces = [
                 [{column: 1, row: 2}, {column: 0, row: 1}, {column: -1, row: 0}, {column: -2, row: -1}],
                 [{column: -2, row: -2}, {column: -1, row: -1}, {column: 0, row: 0}, {column: 1, row: 1}],
             ],
-        color: 'light-blue'
+        color: 'lightblue'
     },
     {
         position: [{column: 3, row: 0}, {column: 3, row: 1}, {column: 4, row: 1}, {column: 5, row: 1}],
@@ -35,7 +35,7 @@ const pieces = [
                 [{column: 0, row: -2}, {column: -1, row: -1}, {column: 0, row: 0}, {column: 1, row: 1}],
             ]
         ,
-        color: 'dark-blue'
+        color: 'darkblue'
     },
     {
         position: [{column: 3, row: 0}, {column: 4, row: 0}, {column: 4, row: 1}, {column: 5, row: 1}],
@@ -107,7 +107,7 @@ const getUncompletedRows = (board) => {
     let rows = [];
     let complete = true;
     board.forEach(function (square, index) {
-        if (square.color === "") {
+        if (square.color === "white") {
             complete = true;
         }
         if (index % 10 === 9) {
@@ -124,14 +124,14 @@ const createShiftingArray = (uncompletedRows) => {
     let array = Array(20).fill({}).map(function (x, index) {
         return({index: 19 - index, shiftWith: -1});
     });
-    for (let i = 0; i < uncompletedRows.length; i++) {
-        if (uncompletedRows[i] !== array[i].index) {
-            array[i].shiftWith = uncompletedRows[i];
+    uncompletedRows.forEach(function (uncompletedRow, index) {
+        if (uncompletedRow !== array[index].index) {
+            array[index].shiftWith = uncompletedRow;
         }
         else {
-            array[i].shiftWith = array[i].index;
+            array[index].shiftWith = array[index].index;
         }
-    }
+    });
     return (array);
 };
 
@@ -143,7 +143,7 @@ const emptyCompleteRows = (shiftingArray, board) => {
             square.color = board[((20 - shiftWith) * 10) - square.column - 1].color;
         }
         else if (shiftWith === -1) {
-                square.color = "";
+                square.color = "white";
         }
         return (square);
     });
@@ -153,6 +153,7 @@ const emptyCompleteRows = (shiftingArray, board) => {
 
 export const createPiece = (state) => {
     const i = Math.floor(Math.random() * Math.floor(7));
+    // const i = 2;
     let newState = Object.assign({}, state);
     let newBoard = putCurrentToBoard(state.board, state.current);
     const uncompletedRows = getUncompletedRows(newBoard);

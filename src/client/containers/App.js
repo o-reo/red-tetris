@@ -31,7 +31,4 @@ const mapStateToProps = (state) => (state);
 
 const mapDispatchToProps = (dispatch) => ({handleDispatch: handleDispatch(dispatch)});
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

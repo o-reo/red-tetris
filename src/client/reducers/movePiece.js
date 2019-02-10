@@ -22,7 +22,7 @@ export const checkNewPosition = (oldPosition, newPosition, board) => {
             else if (position.column > 9) {
                 throw positionWrong(AGAINSTSIDE, RIGHT);
             }
-            else if (board[position.row * 10 + position.column].color !== "") {
+            else if (board[position.row * 10 + position.column].color !== "white") {
                 throw positionWrong(ALREADYTAKEN,null);
             }
         });

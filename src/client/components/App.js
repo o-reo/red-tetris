@@ -1,13 +1,21 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import Board from '../containers/Board';
-import './App.css';
+import Game from '../components/Game';
+import Footer from '../components/Footer';
+
+const appStyle = {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+};
 
 const App = () => (
-    <div id="app">
-        <h1>Red Tetris</h1>
-        <Board className="board"/>
-    </div>
+<div style={appStyle}>
+    <Game/>
+    <Footer/>
+</div>
 );
 
 export default connect()(App);

@@ -16,6 +16,4 @@ const mapStateToProps = (state) => {
     return ({board});
 };
 
-export default connect(
-    mapStateToProps
-)(Board);
+export default connect(mapStateToProps)(Board);
