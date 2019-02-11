@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import WebFont from 'webfontloader';
 import logo from "../assets/Le-101.png";
 
@@ -36,7 +35,7 @@ const imageStyle = {
 const Footer = () => (
     <div style={footerStyle}>
         <p style={fontStyle}>befuhro & gmadec</p>
-        <img src={logo} style={imageStyle}/>
+        <img src={logo} style={imageStyle} alt="le-101-logo" />
     </div>
 );
 

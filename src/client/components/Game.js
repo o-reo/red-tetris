@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import WebFont from 'webfontloader';
 import Board from '../containers/Board';
 import logo from '../assets/logo.svg';
@@ -34,7 +33,7 @@ const titleStyle = {
 
 const Game = () => (
     <div style={gameStyle}>
-        <img src={logo} className="App-logo" />
+        <img src={logo} className="App-logo" alt="react-logo" />
         <h1 style={titleStyle}>RED TETRIS</h1>
         <Board/>
     </div>

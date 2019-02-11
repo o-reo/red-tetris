@@ -1,5 +1,6 @@
 import React from 'react';
 import Square from "./Square";
+import PropTypes from "prop-types"
 
 const boardStyle = {
     width: "30vh",
@@ -12,10 +13,10 @@ const boardStyle = {
     borderStyle: "inset"
 };
 
-const Board = (props) => (
+const Board = ({board}) => (
 <div style={boardStyle}>
     {
-        props.board.map((square, index) =>
+        board.map((square, index) =>
             <Square
                 key={index}
                 index={index}
@@ -24,5 +25,15 @@ const Board = (props) => (
     }
 </div>
 );
+
+Board.propTypes = {
+    board: PropTypes.arrayOf(
+        PropTypes.shape({
+            color: PropTypes.string.isRequired,
+            row: PropTypes.number.isRequired,
+            column: PropTypes.number.isRequired,
+        }).isRequired
+    ).isRequired
+};
 
 export default Board;
