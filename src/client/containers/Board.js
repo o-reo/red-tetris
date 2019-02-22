@@ -9,9 +9,9 @@ const insertCurrentIntoBoard = (board, current) => {
 };
 
 const mapStateToProps = (state) => {
-    let board = state.pieces.board.map((square) => Object.assign({}, square));
-    if (state.pieces.current !== null) {
-        board = insertCurrentIntoBoard(board, state.pieces.current);
+    let board = state.game.board.map((square) => Object.assign({}, square));
+    if (state.game.current !== null) {
+        board = insertCurrentIntoBoard(board, state.game.current);
     }
     return ({board});
 };

@@ -1,13 +1,6 @@
 import React from 'react';
-import WebFont from 'webfontloader';
 import Board from '../containers/Board';
 import logo from '../assets/logo.svg';
-
-WebFont.load({
-    google: {
-        families: ["Orbitron:black"]
-    }
-});
 
 const gameStyle = {
     width: "35vh",
@@ -31,12 +24,13 @@ const titleStyle = {
     color: "#e1301d"
 };
 
-const Game = () => (
-    <div style={gameStyle}>
-        <img src={logo} className="App-logo" alt="react-logo" />
-        <h1 style={titleStyle}>RED TETRIS</h1>
+const Game = () => {
+    return (
+    <div style={ gameStyle }>
+        <img src={ logo } className="App-logo" alt="react-logo" />
+        <h1 style={ titleStyle }>RED TETRIS</h1>
         <Board/>
-    </div>
-);
+    </div>);
+};
 
 export default Game;
