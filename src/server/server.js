@@ -1,16 +1,11 @@
-'use strict';
+const app = require('express')();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
-const express = require('express');
+server.listen(8080);
 
-// Constants
-const PORT = 8080;
-const HOST = '0.0.0.0';
-
-// App
-const app = express();
-app.get('/', (req, res) => {
-	res.send('Hello world\n');
+io.on('connection', function (socket) {
+	socket.on('join room', function (data) {
+		console.log(data);
+	});
 });
-
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);

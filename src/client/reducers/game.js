@@ -1,4 +1,4 @@
-import { MOVE_PIECE, CREATE_PIECE, ROTATE_PIECE } from '../actions/pieces';
+import { MOVE_PIECE, CREATE_PIECE, ROTATE_PIECE, LISTENER_GAME } from '../actions/pieces';
 import { createPiece } from "./createPiece";
 import { movePiece } from "./movePiece";
 import { rotatePiece } from "./rotatePiece";
@@ -10,8 +10,16 @@ const initialState = () => {
             const coord = {row: Math.floor(index / 10), column: index % 10};
             return ({...square, ...coord});
         }),
-        current: null
+        current: null,
+        isListening: false
     }
+};
+
+const listenerGame = (state) => {
+    let newState = Object.assign({}, state);
+
+    newState.isListening = true;
+    return (newState);
 };
 
 const game = (state = initialState(), action) => {
@@ -31,6 +39,9 @@ const game = (state = initialState(), action) => {
             }
             case ROTATE_PIECE: {
                 return rotatePiece(state);
+            }
+            case LISTENER_GAME: {
+                return listenerGame(state);
             }
             default: {
                 return (state);

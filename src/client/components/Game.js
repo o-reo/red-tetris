@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types"
 import Board from '../containers/Board';
 import logo from '../assets/logo.svg';
 
@@ -24,13 +25,21 @@ const titleStyle = {
     color: "#e1301d"
 };
 
-const Game = () => {
+const Game = ({onLoad, state, room, player}) => {
+    if (state.game.isListening === false) {
+        onLoad();
+    }
     return (
-    <div style={ gameStyle }>
-        <img src={ logo } className="App-logo" alt="react-logo" />
-        <h1 style={ titleStyle }>RED TETRIS</h1>
-        <Board/>
-    </div>);
+        <div style={gameStyle} id={"game"}>
+            <img src={logo} className="App-logo" alt="react-logo"/>
+            <h1 style={titleStyle}>RED TETRIS</h1>
+            <Board/>
+        </div>);
+};
+
+Game.propTypes = {
+    onLoad: PropTypes.func.isRequired,
+    // isListening: PropTypes.bool.isRequired,
 };
 
 export default Game;

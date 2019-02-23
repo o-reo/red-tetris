@@ -5,8 +5,8 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './reducers/index.js';
 import App from './components/App.js';
-import LogUser from './containers/LogUser';
-import logUserMiddleware from "./middlewares/logUser"
+import LogUser from './containers/joinRoom';
+import logUserMiddleware from "./middlewares/joinRoom"
 import rotatePieceMiddleware from "./middlewares/rotatePiece"
 import movePieceMiddleware from "./middlewares/movePiece"
 import './assets/style.css';
@@ -18,7 +18,7 @@ const store = createStore(rootReducer,
                     ));
 
 render(
-    <Provider store={store}>
+    <Provider store={ store }>
         <HashRouter>
             <Switch>
                 <Route path="/:room[:player]" component={ App }/>

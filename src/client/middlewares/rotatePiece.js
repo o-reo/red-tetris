@@ -12,7 +12,7 @@ const rotatePieceMiddleware = store => next => action => {
         let newPosition = position.map(function (pos, index) {
             return ({column: pos.column + rotation[index].column, row: pos.row + rotation[index].row});
         });
-        const error = checkNewPosition(position, newPosition, board);
+        const error = checkNewPosition(position, newPosition, board, "rotate");
         if (error === true) {
             next(action);
         }
@@ -32,7 +32,7 @@ const rotatePieceMiddleware = store => next => action => {
             else if (error.type === ALREADY_TAKEN) {
                 next(movePiece(TOP));
             }
-            next(action);
+            rotatePieceMiddleware(store)(next)(action);
         }
     }
     else {

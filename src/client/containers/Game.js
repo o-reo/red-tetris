@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import Game from '../components/Game.js';
-import { createPiece, movePiece, rotatePiece } from "../actions/pieces";
+import { createPiece, movePiece, rotatePiece, listenerGame } from "../actions/pieces";
+import { joinGame } from "../actions";
 import { BOTTOM, LEFT, RIGHT } from "../utils/direction";
-
 
 const handleKey = (event, dispatch) => {
     if (event.key === 'ArrowLeft') {
@@ -22,17 +22,35 @@ const handleKey = (event, dispatch) => {
     }
 };
 
-const handleDispatch = (dispatch) => {
-    window.onload = function () {
-        document.addEventListener('keydown', (event) => handleKey(event, dispatch));
-        // setInterval(function () {
-        //     dispatch(movePiece(BOTTOM))
-        // }, 400);
-    }
+const startParty = (dispatch, ownProps) => {
+
+    console.log(ownProps);
+
+
+
+    console.log(dispatch(joinGame(ownProps.player, ownProps.room)));
+
+
+
+
+
+
+
+    document.addEventListener('keydown', (event) => handleKey(event, dispatch));
+    dispatch(listenerGame());
+
+
+
+
+
+    // setInterval(function () {
+    //     dispatch(movePiece(BOTTOM))
+    // }, 400);
 };
 
-const mapStateToProps = (state) => (state);
+const mapStateToProps = (state) => ({state: state});
 
-const mapDispatchToProps = (dispatch) => ({handleDispatch: handleDispatch(dispatch)});
+const mapDispatchToProps = (dispatch, ownProps) => ({ onLoad: () => startParty(dispatch, ownProps)});
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

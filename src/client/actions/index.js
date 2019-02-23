@@ -1,3 +1,3 @@
-export const LOG_USER = 'LOG_USER';
+export const JOIN_ROOM = 'JOIN_ROOM';
 
-export const logUser = (userName) => ({type: LOG_USER, userName});
+export const joinGame = (userName, room) => ({type: JOIN_ROOM, userName: userName, room: room});
