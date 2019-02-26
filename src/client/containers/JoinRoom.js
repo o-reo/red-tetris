@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import JoinRoom from '../components/joinRoom.js';
+import JoinRoom from '../components/JoinRoom.js';
 
 const joinRoom = () => {
     const userName = document.getElementById("username").value;

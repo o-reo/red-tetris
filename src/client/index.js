@@ -1,28 +1,37 @@
 import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { HashRouter, Route, Switch } from 'react-router-dom';
-import { createStore, applyMiddleware } from 'redux';
+import {render} from 'react-dom';
+import {Provider} from 'react-redux';
+import {HashRouter, Route, Switch} from 'react-router-dom';
+import {createStore, applyMiddleware} from 'redux';
+import thunkMiddleware from "redux-thunk";
+import {createLogger} from "redux-logger";
+
 import rootReducer from './reducers/index.js';
-import App from './components/App.js';
-import LogUser from './containers/joinRoom';
-import logUserMiddleware from "./middlewares/joinRoom"
+import App from './containers/App.js';
+import joinRoomMiddleware from "./middlewares/joinRoom"
+import createPieceMiddleware from "./middlewares/createPiece"
 import rotatePieceMiddleware from "./middlewares/rotatePiece"
 import movePieceMiddleware from "./middlewares/movePiece"
 import './assets/style.css';
 
+const loggerMiddleware = createLogger();
+
 const store = createStore(rootReducer,
-    applyMiddleware(logUserMiddleware,
-                    rotatePieceMiddleware,
-                    movePieceMiddleware,
-                    ));
+    applyMiddleware(
+        thunkMiddleware,
+        // loggerMiddleware,
+        joinRoomMiddleware,
+        rotatePieceMiddleware,
+        createPieceMiddleware,
+        movePieceMiddleware,
+    ));
 
 render(
-    <Provider store={ store }>
+    <Provider store={store}>
         <HashRouter>
             <Switch>
-                <Route path="/:room[:player]" component={ App }/>
-                <Route path="/" component={ LogUser }/>
+                <Route path="/:room[:player]" component={App}/>
+                <Route path="/" component={App}/>
             </Switch>
         </HashRouter>
     </Provider>

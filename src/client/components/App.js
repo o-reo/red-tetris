@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {connect} from 'react-redux';
 import WebFont from 'webfontloader';
 import Game from '../containers/Game';
+import JoinRoom from "../containers/JoinRoom";
 import Footer from '../components/Footer';
 
 WebFont.load({google: {families: ["Permanent Marker", "Orbitron:black"]}});
@@ -14,11 +15,17 @@ const appStyle = {
     alignItems: "center",
 };
 
-const App = ({match: {params}}) => {
+const App = ({match: {params}, connectToRoom, username, room, isConnected}) => {
+    useEffect(() => {
+        connectToRoom(username, room);
+    });
     return (
         <div style={appStyle}>
-            <Game room={params.room} player={params.player} />
-            <Footer />
+            {isConnected ?
+                (<Game/>) :
+                (<JoinRoom/>)
+            }
+            <Footer/>
         </div>
     )
 };

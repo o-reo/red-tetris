@@ -25,8 +25,8 @@ const titleStyle = {
     color: "#e1301d"
 };
 
-const Game = ({onLoad, state, room, player}) => {
-    if (state.game.isListening === false) {
+const Game = ({onLoad, connectToRoom, isListening}) => {
+    if (isListening === false) {
         onLoad();
     }
     return (
@@ -39,7 +39,7 @@ const Game = ({onLoad, state, room, player}) => {
 
 Game.propTypes = {
     onLoad: PropTypes.func.isRequired,
-    // isListening: PropTypes.bool.isRequired,
+    isListening: PropTypes.bool.isRequired,
 };
 
 export default Game;

@@ -1,5 +1,5 @@
 import pieces from "../utils/tetriminos";
-import { putCurrentToBoard, getUncompletedRows, createShiftingArray, emptyCompleteRows } from "../utils/newPiece"
+import { putCurrentToBoard, getUncompletedRows, createShiftingArray, emptyCompleteRows } from "../utils/newPiece";
 
 export const createPiece = (state) => {
     const i = Math.floor(Math.random() * Math.floor(7));

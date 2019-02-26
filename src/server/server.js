@@ -1,11 +1,11 @@
-const app = require('express')();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const app = require("express")();
+const server = require("http").Server(app);
+const io = require("socket.io")(server);
+
+const gameController = require("./controller/games");
 
 server.listen(8080);
 
-io.on('connection', function (socket) {
-	socket.on('join room', function (data) {
-		console.log(data);
-	});
-});
+const room = io.of("/room");
+
+room.on("connection", function(socket) { gameController.handleRoomConnection(socket) });
