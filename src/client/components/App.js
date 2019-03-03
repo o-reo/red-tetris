@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import {connect} from 'react-redux';
 import WebFont from 'webfontloader';
 import Game from '../containers/Game';
+import OtherPlayer from '../components/otherPlayers';
 import JoinRoom from "../containers/JoinRoom";
 import Footer from '../components/Footer';
 
@@ -15,12 +15,22 @@ const appStyle = {
     alignItems: "center",
 };
 
-const App = ({match: {params}, connectToRoom, username, room, isConnected}) => {
+const App = ({match: {params}, connectToRoom, username, room, isConnected, playersList}) => {
     useEffect(() => {
         connectToRoom(username, room);
     });
     return (
         <div style={appStyle}>
+            {/*<div>*/}
+
+                {/*{*/}
+                    {/*playersList.map((player, index) => (*/}
+                        {/*<OtherPlayer username={player} key={index} />*/}
+                    {/*))*/}
+
+                {/*}*/}
+
+            {/*</div>*/}
             {isConnected ?
                 (<Game/>) :
                 (<JoinRoom/>)
@@ -30,4 +40,4 @@ const App = ({match: {params}, connectToRoom, username, room, isConnected}) => {
     )
 };
 
-export default connect()(App);
+export default App;

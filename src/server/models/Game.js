@@ -1,13 +1,14 @@
 const Piece = require("../models/Piece");
+const Player = require("../models/Player");
 
 class Game {
     constructor(name) {
         this.name = name;
-        this.players = [];
+        this.players = {};
+        this.playerList = [];
         this.Pieces = [];
-        for (let i = 0; i < 3; i++) {
-            this.addPiece();
-        }
+        this.gameIsStarted = false;
+        this.addPieces(5);
     }
 
     addPiece() {
@@ -15,14 +16,31 @@ class Game {
         this.Pieces.push(new Piece(index));
     }
 
-    addPlayer(playerName) {
-        this.players.push(playerName);
+    addPieces(number) {
+        for (let i = 0; i < number; i++) {
+            this.addPiece();
+        }
+    }
+
+    addPlayer(playerName, socket) {
+        this.players[playerName] = (new Player(playerName, socket));
+        this.playerList.push(playerName);
     }
 
     deletePlayer(playerName) {
-        this.players = this.players.filter(function(player)  {
-           return (player !== playerName);
+        this.players[playerName].socket.broadcast.emit("opponent disconnection", playerName);
+        this.players[playerName].socket.disconnect();
+        delete this.players[playerName];
+        this.playerList = this.playerList.filter(function(player)  {
+            return (player !== playerName);
         });
+    }
+
+    getOpponentList(playerName) {
+        const opponentList = this.playerList.filter(function(name) {
+            return (name !== playerName);
+        });
+        return (opponentList);
     }
 }
 

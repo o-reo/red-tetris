@@ -1,10 +1,8 @@
-export const socketConnection = (socket, username, room) => {
-
-    window.onhashchange = function() {
-        socket.emit("forceDisconnect",  { username: username, room: room });
-    };
-
-    socket.on("user connection", function (data) {
-        console.log(data);
+export const connectToRoom = (socket, dispatch) => {
+    socket.on("opponent connection", function (player) {
+        console.log(player, "joined the game.");
+    });
+    socket.on("opponent disconnection", function (player) {
+        console.log(player, "left the game.");
     });
 };

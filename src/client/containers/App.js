@@ -12,7 +12,12 @@ const connectToRoom = (dispatch, ownProps, statePlayer, stateRoom) => {
     }
 };
 
-const mapStateToProps = (state) => ({ username: state.env.username, room: state.env.room, isConnected: state.env.isConnected });
+const mapStateToProps = (state) => ({
+    username: state.env.username,
+    room: state.env.room,
+    isConnected: state.env.isConnected,
+    playersList: state.env.playersList
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     connectToRoom: (username, room) => connectToRoom(dispatch, ownProps, username, room),
