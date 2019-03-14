@@ -25,16 +25,17 @@ const titleStyle = {
     color: "#e1301d"
 };
 
-const Game = ({onLoad, connectToRoom, isListening}) => {
+const Game = ({ onLoad, isListening }) => {
     if (isListening === false) {
         onLoad();
     }
     return (
-        <div style={gameStyle} id={"game"}>
+        <div style={gameStyle} id={"env"}>
             <img src={logo} className="App-logo" alt="react-logo"/>
             <h1 style={titleStyle}>RED TETRIS</h1>
             <Board/>
-        </div>);
+        </div>
+    );
 };
 
 Game.propTypes = {

@@ -1,15 +1,15 @@
 import checkNewPosition from "../utils/checkNewPosition";
-import { movePiece } from "../actions/pieces";
+import { movePiece } from "../actions/game";
 import { TOP, BOTTOM, LEFT, RIGHT, ALREADY_TAKEN } from "../utils/direction";
-import { ROTATE_PIECE } from "../actions/pieces";
+import { ROTATE_PIECE } from "../actions/game";
 
 const rotatePieceMiddleware = store => next => action => {
-    if (action.type === ROTATE_PIECE) {
+    if (action.type === ROTATE_PIECE && store.getState().game.current !== null) {
         const board = store.getState().game.board;
         const position = store.getState().game.current.position;
         const indexRotation = store.getState().game.current.indexRotation - 1;
         const rotation = store.getState().game.current.rotation[indexRotation];
-        let newPosition = position.map(function (pos, index) {
+        let newPosition = position.map((pos, index) => {
             return ({column: pos.column + rotation[index].column, row: pos.row + rotation[index].row});
         });
         const error = checkNewPosition(position, newPosition, board, "rotate");
@@ -17,6 +17,7 @@ const rotatePieceMiddleware = store => next => action => {
             next(action);
         }
         else {
+            console.log(error);
             if (error.side === LEFT) {
                 next(movePiece(RIGHT));
             }
@@ -35,6 +36,7 @@ const rotatePieceMiddleware = store => next => action => {
             rotatePieceMiddleware(store)(next)(action);
         }
     }
+    else if (action.type === ROTATE_PIECE && store.getState().game.current === null) {}
     else {
         next(action);
     }

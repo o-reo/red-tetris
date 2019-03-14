@@ -1,7 +1,9 @@
+import cloneDeep from "lodash/cloneDeep";
+
 export const putCurrentToBoard = (board, current) => {
     if (current !== null) {
-        let newBoard = Object.assign([], board);
-        current.position.forEach(function (pos) {
+        let newBoard = cloneDeep(board);
+        current.position.forEach((pos) => {
             newBoard[pos.row * 10 + pos.column].color = current.color;
         });
         return (newBoard);
@@ -13,7 +15,7 @@ export const putCurrentToBoard = (board, current) => {
 export const getUncompletedRows = (board) => {
     let rows = [];
     let complete = true;
-    board.forEach(function (square, index) {
+    board.forEach((square, index) => {
         if (square.color === "white") {
             complete = true;
         }
@@ -31,7 +33,7 @@ export const createShiftingArray = (uncompletedRows) => {
     let array = Array(20).fill({}).map(function (x, index) {
         return({index: 19 - index, shiftWith: -1});
     });
-    uncompletedRows.forEach(function (uncompletedRow, index) {
+    uncompletedRows.forEach((uncompletedRow, index) => {
         if (uncompletedRow !== array[index].index) {
             array[index].shiftWith = uncompletedRow;
         }
@@ -44,7 +46,7 @@ export const createShiftingArray = (uncompletedRows) => {
 
 export const emptyCompleteRows = (shiftingArray, board) => {
     board.reverse();
-    board = board.map(function (square) {
+    board = board.map((square) => {
         const shiftWith = shiftingArray[19 - square.row].shiftWith;
         if (square.row !== shiftWith && shiftWith !== -1) {
             square.color = board[((20 - shiftWith) * 10) - square.column - 1].color;

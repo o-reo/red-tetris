@@ -1,8 +1,17 @@
+import { updateRoom } from "../actions/env";
+import { askPiece } from "../actions/game";
+
 export const connectToRoom = (socket, dispatch) => {
-    socket.on("opponent connection", function (player) {
-        console.log(player, "joined the game.");
+    // Handle opponent connection and disconnection
+    socket.on("opponent connection", (data) => {
+        dispatch(updateRoom(data.players, data.leaderName));
     });
-    socket.on("opponent disconnection", function (player) {
-        console.log(player, "left the game.");
+    socket.on("opponent disconnection", (data) => {
+        dispatch(updateRoom(data.players, data.leaderName));
+    });
+
+    // Handle party launching
+    socket.on("launch party", () => {
+        dispatch(askPiece());
     });
 };

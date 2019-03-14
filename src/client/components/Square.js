@@ -1,12 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import clone from "lodash/clone";
 import PropTypes from "prop-types"
 
 const squareStyle = {
-    height: "2.7824vh",
-    width: "2.7824vh",
+    height: "2.5vh",
+    width: "2.5vh",
     borderStyle: "outset",
-    borderWidth: "0.1vh",
+    borderWidth: "0.2vh",
     borderColor: "#749099"
 };
 

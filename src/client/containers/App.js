@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import App from '../components/App.js';
-import { joinRoom } from "../actions/joinRoom";
+import { env } from "../actions/env";
 
 const connectToRoom = (dispatch, ownProps, statePlayer, stateRoom) => {
     const hashPlayer = ownProps.match.params.player;
@@ -8,7 +8,7 @@ const connectToRoom = (dispatch, ownProps, statePlayer, stateRoom) => {
 
     if ((hashPlayer !== statePlayer || hashRoom !== stateRoom) &&
         (hashPlayer !== undefined && hashRoom !== undefined)) {
-        dispatch(joinRoom(hashPlayer, hashRoom));
+        dispatch(env(hashPlayer, hashRoom));
     }
 };
 
@@ -16,7 +16,6 @@ const mapStateToProps = (state) => ({
     username: state.env.username,
     room: state.env.room,
     isConnected: state.env.isConnected,
-    playersList: state.env.playersList
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

@@ -4,7 +4,7 @@ const positionWrong = (type, side) => ({type: type, side: side});
 
 const checkNewPosition = (oldPosition, newPosition, board) => {
     try {
-        newPosition.forEach(function (position) {
+        newPosition.forEach((position) => {
             if (position.row < 0) {
                 throw positionWrong(AGAINST_SIDE, TOP);
             }

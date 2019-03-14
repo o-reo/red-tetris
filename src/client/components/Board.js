@@ -3,7 +3,7 @@ import Square from "./Square";
 import PropTypes from "prop-types"
 
 const boardStyle = {
-    width: "30vh",
+    width: "29vh",
     height: "60vh",
     display: "flex",
     flexWrap: "wrap",
@@ -13,7 +13,7 @@ const boardStyle = {
     borderStyle: "inset"
 };
 
-const Board = ({board}) => (
+const Board = ({ board }) => (
 <div style={boardStyle}>
     {
         board.map((square, index) =>

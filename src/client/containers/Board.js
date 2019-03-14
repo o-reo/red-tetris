@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import clone from "lodash/clone";
 import Board from '../components/Board.js'
 
 const insertCurrentIntoBoard = (board, current) => {
@@ -9,7 +10,7 @@ const insertCurrentIntoBoard = (board, current) => {
 };
 
 const mapStateToProps = (state) => {
-    let board = state.game.board.map((square) => Object.assign({}, square));
+    let board = state.game.board.map((square) => clone(square));
     if (state.game.current !== null) {
         board = insertCurrentIntoBoard(board, state.game.current);
     }

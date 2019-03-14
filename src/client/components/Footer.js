@@ -10,9 +10,9 @@ WebFont.load({
 
 const footerStyle = {
     width: "100%",
+    height: "14.24vh",
     padding: "-3vh",
     display: "flex",
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundImage: "linear-gradient(rgba(53, 58, 73, 0.7), rgba(11, 29, 45, 1))",

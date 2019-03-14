@@ -1,7 +1,7 @@
 import { TOP, BOTTOM, LEFT, RIGHT } from "./direction";
 
 const getNewPosition = (position, direction) => {
-    let newPosition = position.map(function (pos) {
+    let newPosition = position.map((pos) => {
         switch (direction) {
             case TOP:
                 return ({ column: pos.column, row: pos.row - 1 });

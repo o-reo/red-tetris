@@ -9,7 +9,6 @@ import {createLogger} from "redux-logger";
 import rootReducer from './reducers/index.js';
 import App from './containers/App.js';
 import joinRoomMiddleware from "./middlewares/joinRoom"
-import createPieceMiddleware from "./middlewares/createPiece"
 import rotatePieceMiddleware from "./middlewares/rotatePiece"
 import movePieceMiddleware from "./middlewares/movePiece"
 import './assets/style.css';
@@ -19,10 +18,9 @@ const loggerMiddleware = createLogger();
 const store = createStore(rootReducer,
     applyMiddleware(
         thunkMiddleware,
-        // loggerMiddleware,
+        loggerMiddleware,
         joinRoomMiddleware,
         rotatePieceMiddleware,
-        createPieceMiddleware,
         movePieceMiddleware,
     ));
 

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Game from '../components/Game.js';
-import { createPiece, movePiece, rotatePiece, listenerGame } from "../actions/pieces";
+import { askPiece, movePiece, rotatePiece, listenerGame } from "../actions/game";
 import { BOTTOM, LEFT, RIGHT } from "../utils/direction";
 
 const handleKey = (event, dispatch) => {
@@ -17,7 +17,7 @@ const handleKey = (event, dispatch) => {
         dispatch(rotatePiece());
     }
     if (event.key === ' ') {
-        dispatch(createPiece());
+        dispatch(askPiece());
     }
 };
 
@@ -30,7 +30,7 @@ const startParty = (dispatch) => {
 };
 
 const mapStateToProps = (state) => ({
-    isListening: state.game.isListening
+    isListening: state.game.isListening,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

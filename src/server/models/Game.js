@@ -1,14 +1,15 @@
+const cloneDeep = require("lodash/cloneDeep");
 const Piece = require("../models/Piece");
 const Player = require("../models/Player");
 
 class Game {
-    constructor(name) {
+    constructor(name, leaderName) {
         this.name = name;
         this.players = {};
-        this.playerList = [];
+        this.leaderName = leaderName;
         this.Pieces = [];
         this.gameIsStarted = false;
-        this.addPieces(5);
+        this.addPieces(10);
     }
 
     addPiece() {
@@ -22,25 +23,43 @@ class Game {
         }
     }
 
+    fetchPieces(from) {
+        if (from + 10 >= this.Pieces.length) {
+            this.addPieces(5);
+        }
+        return (this.Pieces.slice(from, from + 5));
+    }
+
     addPlayer(playerName, socket) {
         this.players[playerName] = (new Player(playerName, socket));
-        this.playerList.push(playerName);
     }
 
+    getPlayerList() {
+        let list = [];
+        const copyPlayers = cloneDeep(this.players);
+        Object.entries(copyPlayers).forEach(([key]) => list.push(key));
+        return (list);
+    }
+
+    getPlayersInfo() {
+        let infos = cloneDeep(this.players);
+        Object.entries(infos).forEach((info) => { delete info[1].socket});
+        return (infos);
+    }
+
+    // Delete player from player list, broadcast the new list, disconnect his socket and delete him from players object.
     deletePlayer(playerName) {
-        this.players[playerName].socket.broadcast.emit("opponent disconnection", playerName);
+        let playersList = this.getPlayerList();
+        let players = this.getPlayersInfo();
+        delete playersList[playerName];
+        delete players[playerName];
+        if (playerName === this.leaderName) {
+            this.leaderName = playersList[1];
+        }
+        this.players[playerName].socket.to(this.name).emit("opponent disconnection", {
+            players: players, leaderName: this.leaderName });
         this.players[playerName].socket.disconnect();
         delete this.players[playerName];
-        this.playerList = this.playerList.filter(function(player)  {
-            return (player !== playerName);
-        });
-    }
-
-    getOpponentList(playerName) {
-        const opponentList = this.playerList.filter(function(name) {
-            return (name !== playerName);
-        });
-        return (opponentList);
     }
 }
 
