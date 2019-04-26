@@ -6,11 +6,12 @@ import {createStore, applyMiddleware} from 'redux';
 import thunkMiddleware from "redux-thunk";
 import {createLogger} from "redux-logger";
 
-import rootReducer from './reducers/index.js';
-import App from './containers/App.js';
-import joinRoomMiddleware from "./middlewares/joinRoom"
-import rotatePieceMiddleware from "./middlewares/rotatePiece"
-import movePieceMiddleware from "./middlewares/movePiece"
+import rootReducer from './Store/Reducers/index.js';
+import Home from './app/Home';
+import Game from './app/Room';
+import joinRoomMiddleware from "./Store/Middlewares/JoinRoom"
+import rotatePieceMiddleware from "./Store/Middlewares/RotatePiece"
+import movePieceMiddleware from "./Store/Middlewares/MovePiece"
 import './assets/style.css';
 
 const loggerMiddleware = createLogger();
@@ -28,8 +29,8 @@ render(
     <Provider store={store}>
         <HashRouter>
             <Switch>
-                <Route path="/:room[:player]" component={App}/>
-                <Route path="/" component={App}/>
+                <Route path="/:room[:player]" component={Game}/>
+                <Route path="/" component={Home}/>
             </Switch>
         </HashRouter>
     </Provider>

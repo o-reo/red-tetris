@@ -5,7 +5,7 @@ import {
     JOIN_ROOM_FAILURE,
     UPDATE_ROOM,
     LEAVE_ROOM
-} from "../actions/env";
+} from "../Actions/Env";
 
 import {
     joinRoom,
@@ -14,7 +14,7 @@ import {
     joinRoomFailure,
     updateRoom,
     leaveRoom
-} from "./joinRoom";
+} from "./JoinRoom";
 
 const initialState = () => ({
     socket: null,

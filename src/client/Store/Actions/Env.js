@@ -1,6 +1,6 @@
 import io from "socket.io-client";
-import { connectToRoom } from "../utils/socketConnection";
-import { fetchPieces } from "./game";
+import { connectToRoom } from "../../utils/socketConnection";
+import { fetchPieces } from "./Game";
 
 export const JOIN_ROOM = "JOIN_ROOM";
 export const env = (username, room) => {

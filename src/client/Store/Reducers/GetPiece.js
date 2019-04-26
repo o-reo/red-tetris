@@ -1,5 +1,5 @@
 import clone from "lodash/clone";
-import { putCurrentToBoard, getUncompletedRows, createShiftingArray, emptyCompleteRows } from "../utils/newPiece";
+import { putCurrentToBoard, getUncompletedRows, createShiftingArray, emptyCompleteRows } from "../../utils/newPiece";
 
 export const getPiece = (state) => {
     const piece = state.pieces[0];

@@ -9,18 +9,18 @@ import {
     FETCH_PIECES_SUCCESS,
     FETCH_PIECES_FAILURE,
     START_PARTY_SUCCESS,
-} from '../actions/game';
+} from '../Actions/Game';
 
 import {
     fetchPiecesRequest,
     fetchPiecesSuccess,
     fetchPiecesFailure
-} from "./fetchPieces"
+} from "./FetchPieces"
 
-import { getPiece } from "./getPiece";
-import { movePiece } from "./movePiece";
-import { rotatePiece } from "./rotatePiece";
-import { startPartySuccess} from "./startParty";
+import { getPiece } from "./GetPiece";
+import { movePiece } from "./MovePiece";
+import { rotatePiece } from "./RotatePiece";
+import { startPartySuccess} from "./StartParty";
 
 const initialState = () => {
     const board = Array(200).fill({color: "white"});

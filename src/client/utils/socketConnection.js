@@ -1,5 +1,5 @@
-import { updateRoom } from "../actions/env";
-import { askPiece } from "../actions/game";
+import { updateRoom } from "../Store/Actions/Env";
+import { askPiece } from "../Store/Actions/Game";
 
 export const connectToRoom = (socket, dispatch) => {
     // Handle opponent connection and disconnection

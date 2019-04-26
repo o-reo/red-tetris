@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import game from "./game"
-import env from "./env"
+import game from "./Game"
+import env from "./Env"
 
 export default combineReducers({
     env,

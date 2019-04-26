@@ -1,7 +1,7 @@
-import checkNewPosition from "../utils/checkNewPosition";
-import { movePiece } from "../actions/game";
-import { TOP, BOTTOM, LEFT, RIGHT, ALREADY_TAKEN } from "../utils/direction";
-import { ROTATE_PIECE } from "../actions/game";
+import checkNewPosition from "../../utils/checkNewPosition";
+import { movePiece } from "../Actions/Game";
+import { TOP, BOTTOM, LEFT, RIGHT, ALREADY_TAKEN } from "../../utils/direction";
+import { ROTATE_PIECE } from "../Actions/Game";
 
 const rotatePieceMiddleware = store => next => action => {
     if (action.type === ROTATE_PIECE && store.getState().game.current !== null) {

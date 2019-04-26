@@ -1,5 +1,5 @@
 import cloneDeep from "lodash/cloneDeep";
-import getNewPosition from "../utils/getNewPosition";
+import getNewPosition from "../../utils/getNewPosition";
 
 export const movePiece = (state, direction) => {
     let newState = cloneDeep(state);
