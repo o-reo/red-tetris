@@ -4,14 +4,14 @@ import React from 'react';
 import Login from '../login/Login';
 
 const blocStyle = {
-    width: '35vh',
-    height: '28vh',
-    margin: '32.9vh',
-    padding: '2vh',
-    backgroundColor: '#0b1d2d',
+    position: 'fixed',
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
 };
 
 function Home() {

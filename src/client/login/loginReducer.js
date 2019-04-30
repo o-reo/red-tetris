@@ -1,51 +1,61 @@
+import clone from "lodash/clone";
 import {
-    JOIN_ROOM,
-    JOIN_ROOM_SUCCESS,
-    JOIN_ROOM_REQUEST,
-    JOIN_ROOM_FAILURE,
-    UPDATE_ROOM,
-    LEAVE_ROOM
-} from "../Actions/Env";
+    CHECK_AVAILABILITY_FAILURE,
+    CHECK_AVAILABILITY_REQUEST,
+    CHECK_AVAILABILITY_SUCCESS,
+    DELETE_ERRORS
+} from "./loginActions";
 
-import {
-    joinRoom,
-    joinRoomRequest,
-    joinRoomSuccess,
-    joinRoomFailure,
-    updateRoom,
-    leaveRoom
-} from "./JoinRoom";
 
 const initialState = () => ({
-    socket: null,
-    username: null,
-    room: null,
-    isConnected: false,
-    isConnecting: false,
-    isRoomLeader: false,
-    players: null,
-    opponent1: null,
-    opponent2: null,
-    opponent3: null
+    isChecking: false,
+    errors: null,
 });
 
-const env = (state = initialState(), action) => {
+function checkAvailabilityRequest(state) {
+    let newState = clone(state);
+
+    newState.errors = null;
+    newState.isChecking = true;
+    return (newState);
+}
+
+function checkAvailabilitySuccess(state) {
+    let newState = clone(state);
+
+    newState.isChecking = false;
+    return (newState);
+}
+
+function checkAvailabilityFailure(state, action) {
+    let newState = clone(state);
+
+    newState.errors = action.errors;
+    newState.isChecking = false;
+    return (newState);
+}
+
+
+function deleteErrors(state) {
+    let newState = clone(state);
+
+    newState.errors = null;
+    return (newState);
+}
+
+function login(state = initialState(), action) {
     switch (action.type) {
-        case JOIN_ROOM:
-            return joinRoom(state);
-        case JOIN_ROOM_REQUEST:
-            return joinRoomRequest(state);
-        case JOIN_ROOM_SUCCESS:
-            return joinRoomSuccess(state, action);
-        case JOIN_ROOM_FAILURE:
-            return joinRoomFailure(state);
-        case UPDATE_ROOM:
-            return updateRoom(state, action);
-        case LEAVE_ROOM:
-            return leaveRoom(state);
+        case CHECK_AVAILABILITY_FAILURE:
+            return (checkAvailabilityFailure(state, action));
+        case CHECK_AVAILABILITY_REQUEST:
+            return (checkAvailabilityRequest(state));
+        case CHECK_AVAILABILITY_SUCCESS:
+            return (checkAvailabilitySuccess(state));
+        case DELETE_ERRORS:
+            return (deleteErrors(state));
         default:
             return (state);
     }
-};
+}
 
-export default env;
+export default login;

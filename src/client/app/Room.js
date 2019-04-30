@@ -12,7 +12,6 @@ import {BOTTOM, LEFT, RIGHT} from "../utils/direction";
 
 WebFont.load({google: {families: ['Permanent Marker', 'Orbitron:black']}});
 
-
 const appStyle = {
     height: '100%'
 };
@@ -39,7 +38,6 @@ function handleKey(event, dispatch) {
         dispatch(askPiece());
     }
 }
-
 
 function connectToRoom(dispatch, hashPlayer, hashRoom, statePlayer, stateRoom) {
     if ((hashPlayer !== statePlayer || hashRoom !== stateRoom) &&

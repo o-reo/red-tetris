@@ -1,8 +1,11 @@
 import { combineReducers } from 'redux';
-import game from "./Game"
-import env from "./Env"
+
+import login from '../../login/loginReducer';
+import game from './Game';
+import env from './Env';
 
 export default combineReducers({
+    login,
     env,
     game,
 });
