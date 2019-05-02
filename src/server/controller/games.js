@@ -93,18 +93,18 @@ function checkAvailability(username, room) {
         connectionData['reasons'] = [];
         //The username is already used in the room.
         if (games[room].players[username]) {
-            connectionData['reasons'].push('The username is already used.');
+            connectionData['reasons'].push({message: 'The username is already used.' , id: 0});
         }
         // The game has already been started.
         if (games[room].gameIsStarted === true) {
-            connectionData['reasons'].push('The game has already been started.');
+            connectionData['reasons'].push({message: 'The game has already been started.', id: 1});
         }
         // There are already 4 people is the room.
         if (Object.keys(games[room].players).length >= 4) {
-            connectionData['reasons'].push('The room is full.');
+            connectionData['reasons'].push({message: 'The room is full.', id: 2});
         } 
         if (connectionData['reasons'].length === 0) {
-            connectionData['reasons'].push('Reason unknown.');
+            connectionData['reasons'].push({message: 'Reason unknown.', id: 3});
         }
     }
     return (connectionData);
@@ -123,9 +123,6 @@ function handleRoomConnection(socket) {
 
     // User try to join room.
     socket.on('join room', (data, callback) => {
-
-
-
 
         tryToConnect(socket, data, callback)
     });

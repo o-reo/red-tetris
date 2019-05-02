@@ -87,7 +87,7 @@ function PopUp({errors, deleteErrors}) {
                 <button style={crossContainer}>
                     <p style={cross} onClick={deleteErrors}>x</p>
                 </button>
-                {errors.map((error) => <p style={errorFont}>{error} </p>)}
+                {errors.map((error) => <p key={error.id} style={errorFont}>{error.message}</p>)}
             </div>
         </div>
     )

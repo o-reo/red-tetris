@@ -10,7 +10,7 @@ import Footer from './Footer';
 import {askPiece, listenerGame, movePiece, rotatePiece} from "../Store/Actions/Game";
 import {BOTTOM, LEFT, RIGHT} from "../utils/direction";
 
-WebFont.load({google: {families: ['Permanent Marker', 'Orbitron:black']}});
+WebFont.load({google: {families: ['Permanent Marker', 'Orbitron: black']}});
 
 const appStyle = {
     height: '100%'
