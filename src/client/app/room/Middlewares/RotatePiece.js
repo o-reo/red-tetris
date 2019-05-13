@@ -1,14 +1,14 @@
-import checkNewPosition from "../../utils/checkNewPosition";
-import { movePiece } from "../Actions/Game";
-import { TOP, BOTTOM, LEFT, RIGHT, ALREADY_TAKEN } from "../../utils/direction";
-import { ROTATE_PIECE } from "../Actions/Game";
+import checkNewPosition from "../../../utils/checkNewPosition";
+import { movePiece } from "../../../Store/Actions/Game";
+import { TOP, BOTTOM, LEFT, RIGHT, ALREADY_TAKEN } from "../../../utils/direction";
+import { ROTATE_PIECE } from "../../../Store/Actions/Game";
 
 const rotatePieceMiddleware = store => next => action => {
-    if (action.type === ROTATE_PIECE && store.getState().game.current !== null) {
-        const board = store.getState().game.board;
-        const position = store.getState().game.current.position;
-        const indexRotation = store.getState().game.current.indexRotation - 1;
-        const rotation = store.getState().game.current.rotation[indexRotation];
+    if (action.type === ROTATE_PIECE && store.getState().room.current !== null) {
+        const board = store.getState().room.board;
+        const position = store.getState().room.current.position;
+        const indexRotation = store.getState().room.current.indexRotation - 1;
+        const rotation = store.getState().room.current.rotation[indexRotation];
         let newPosition = position.map((pos, index) => {
             return ({column: pos.column + rotation[index].column, row: pos.row + rotation[index].row});
         });
@@ -36,7 +36,7 @@ const rotatePieceMiddleware = store => next => action => {
             rotatePieceMiddleware(store)(next)(action);
         }
     }
-    else if (action.type === ROTATE_PIECE && store.getState().game.current === null) {}
+    else if (action.type === ROTATE_PIECE && store.getState().room.current === null) {}
     else {
         next(action);
     }

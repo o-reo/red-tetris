@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import clone from 'lodash/clone';
 // import PropTypes from 'prop-types';
 
 import Square from '../square/Square';
-import logo from '../../assets/logo.svg';
-
+import logo from '../../../assets/logo.svg';
 
 const mainBlockStyle = {
     width: '35vh',
@@ -47,15 +46,11 @@ function insertCurrentIntoBoard(board, current) {
     return (board);
 }
 
-function Game({board}) {
+function Board({board}) {
     return (
-
-
-
         <div style={mainBlockStyle} id={'env'}>
             <img src={logo} className='App-logo' alt='react-logo'/>
             <h1 style={titleStyle}>RED TETRIS</h1>
-
             <div style={boardStyle}>
                 {
                     board.map((square, index) =>
@@ -67,38 +62,19 @@ function Game({board}) {
                 }
             </div>
         </div>
-
-
-
-
-
-
-
     )
 }
 
-
-
-
-
-
-//
-// Game.propTypes = {
-//     board: PropTypes.arrayOf(
-//         PropTypes.shape({
-//             color: PropTypes.string.isRequired,
-//             row: PropTypes.number.isRequired,
-//             column: PropTypes.number.isRequired,
-//         }).isRequired
-//     ).isRequired
-// };
-
 const mapStateToProps = (state) => {
-    let board = state.game.board.map((square) => clone(square));
-    if (state.game.current !== null) {
-        board = insertCurrentIntoBoard(board, state.game.current);
+    let board = state.room.board.map((square) => clone(square));
+    if (state.room.current !== null) {
+        board = insertCurrentIntoBoard(board, state.room.current);
     }
     return ({board});
 };
 
-export default connect(mapStateToProps)(Game);
+const mapDispatchToProps = (dispatch) => ({
+    dispatch: dispatch,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Board);

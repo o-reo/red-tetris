@@ -3,8 +3,6 @@ export const getPiece = () => ({type: GET_PIECE});
 
 export const askPiece = () => {
     return ((dispatch, getState) => {
-        // const socket = getState().env.socket;
-        // const board = getState().env.board;
         const numberOfPieces = getState().game.pieces.length;
         if (numberOfPieces <= 5) {
             dispatch(fetchPieces());

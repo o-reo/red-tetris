@@ -10,14 +10,15 @@ WebFont.load({
 });
 
 const footerStyle = {
-    width: '100%',
-    height: '14.24vh',
-    padding: '-3vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundImage: 'linear-gradient(rgba(53, 58, 73, 0.7), rgba(11, 29, 45, 1))',
+    position: 'absolute',
+    bottom: '0',
+    width: '100%',
+    height: '14.24vh',
     color: '#61dafb',
+    backgroundImage: 'linear-gradient(rgba(53, 58, 73, 0.7), rgba(11, 29, 45, 1))',
 };
 
 const fontStyle = {

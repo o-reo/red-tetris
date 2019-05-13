@@ -60,7 +60,7 @@ function tryToConnect(socket, data, callback) {
         callback({connected: false, error: 'username already taken'});
         socket.disconnect();
     }
-    // The player can not enter the room if the game has started.
+    // The player can not enter the room if the board has started.
     else if (games[data.room].gameIsStarted === true) {
         console.log(data.username + ' couldn\'t connect because the games has already started.');
         callback({connected: false, error: 'env is already started'});
@@ -78,54 +78,74 @@ function tryToConnect(socket, data, callback) {
 
 function checkAvailability(username, room) {
     console.log(username + ' wants to join room ' + room);
-    let connectionData = {};
+    let authData = {};
     // If the room doesn't exist yet, the player create it and becomes the leader of this room.
     if (games[room] === undefined) {
-        connectionData['canConnect'] = true;
+        authData['canConnect'] = true;
     }
     // If nobody has the same name in the room, that the env hasn't started yet and there are less than 4 people is the room player can join the room
     else if (games[room].players[username] === undefined && games[room].gameIsStarted !== true && Object.keys(games[room].players).length < 4) {
-        connectionData['canConnect'] = true;
+        authData['canConnect'] = true;
     }
     // The player can not enter the room.
     else {
-        connectionData['canConnect'] = false;
-        connectionData['reasons'] = [];
+        authData['canConnect'] = false;
+        authData['reasons'] = [];
         //The username is already used in the room.
         if (games[room].players[username]) {
-            connectionData['reasons'].push({message: 'The username is already used.' , id: 0});
+            authData['reasons'].push({message: 'The username is already used.' , id: 0});
         }
-        // The game has already been started.
+        // The board has already been started.
         if (games[room].gameIsStarted === true) {
-            connectionData['reasons'].push({message: 'The game has already been started.', id: 1});
+            authData['reasons'].push({message: 'The board has already been started.', id: 1});
         }
         // There are already 4 people is the room.
         if (Object.keys(games[room].players).length >= 4) {
-            connectionData['reasons'].push({message: 'The room is full.', id: 2});
-        } 
-        if (connectionData['reasons'].length === 0) {
-            connectionData['reasons'].push({message: 'Reason unknown.', id: 3});
+            authData['reasons'].push({message: 'The room is full.', id: 2});
+        }
+        if (authData['reasons'].length === 0) {
+            authData['reasons'].push({message: 'Reason unknown.', id: 3});
         }
     }
-    return (connectionData);
+    return (authData);
 }
 
 function handleRoomConnection(socket) {
     // User check for username and room availability.
     socket.on('check availability', (data, callback) => {
-        const connectionData = checkAvailability(data.username, data.room);
-        callback(connectionData);
-        if (connectionData['canConnect'] !== true) {
+        const authData = checkAvailability(data.username, data.room);
+        // callback(authData);
+        if (authData['canConnect'] === false) {
+            callback(authData);
             socket.disconnect();
         }
-        callback(connectionData);
+        callback(authData);
     });
 
     // User try to join room.
     socket.on('join room', (data, callback) => {
+        // tryToConnect(socket, data, callback)
+        const authData = checkAvailability(data.username, data.room);
+        if (authData['canConnect'] === true) {
+            let authData  = {connected: true};
+            if (games[data.room] === undefined) {
+                games[data.room] = new Game(data.room, data.username);
+                authData = {...authData, ...{players: {}, isRoomLeader: true}};
+            }
+            else {
+                authData = {...authData, ...{players: games[data.room].getPlayersInfo(), isRoomLeader: false}};
+            }
+            connectPlayer(socket, data);
+            callback(authData);
+        }
+        else {
+            callback({isConnected: false, reasons: authData['reasons']});
+            socket.disconnect();
+        }
 
-        tryToConnect(socket, data, callback)
+
+
     });
 }
 
-module.exports = {handleRoomConnection: handleRoomConnection};
+module.exports = { handleRoomConnection: handleRoomConnection };
