@@ -54,6 +54,10 @@ export const fetchPieces = () => {
     return ((dispatch, getState) => {
         const socket = getState().room.socket;
         const indexPiece = getState().room.indexPieces;
+
+
+        console.log('index at fetch = ', indexPiece);
+
         socket.emit("fetch pieces", indexPiece, (data) => {
             if (data.pieces !== null) {
                 dispatch(fetchPiecesSuccess(data.pieces));
@@ -67,7 +71,6 @@ export const fetchPieces = () => {
 export const askPiece = () => {
     return ((dispatch, getState) => {
         const numberOfPieces = getState().room.pieces.length;
-        console.log(numberOfPieces);
         if (numberOfPieces <= 5) {
             dispatch(fetchPieces());
         }

@@ -3,7 +3,7 @@ export const getPiece = () => ({type: GET_PIECE});
 
 export const askPiece = () => {
     return ((dispatch, getState) => {
-        const numberOfPieces = getState().game.pieces.length;
+        const numberOfPieces = getState().room.pieces.length;
         if (numberOfPieces <= 5) {
             dispatch(fetchPieces());
         }
@@ -22,9 +22,10 @@ export const listenerGame = () => ({type: LISTENER_GAME});
 
 export const fetchPieces = () => {
     return ((dispatch, getState) => {
-        const socket = getState().env.socket;
-        const indexPiece = getState().game.indexPieces;
+        const socket = getState().room.socket;
+        const indexPiece = getState().room.indexPieces;
         dispatch(fetchPiecesRequest());
+        console.log(indexPiece);
         socket.emit("fetch pieces", indexPiece, (data) => {
             if (data.pieces !== null) {
                 dispatch(fetchPiecesSuccess(data.pieces));
@@ -48,8 +49,8 @@ export const fetchPiecesFailure = () => ({type: FETCH_PIECES_FAILURE});
 export const START_PARTY = "START_PARTY";
 export const startParty = () => {
     return ((dispatch, getState) => {
-        const socket = getState().env.socket;
-        const isStarted= getState().game.isStarted;
+        const socket = getState().room.socket;
+        const isStarted= getState().room.isStarted;
         if (isStarted === false) {
             socket.emit("start party", (data) => {
                 if (data.authorizedToLaunchParty === true) {

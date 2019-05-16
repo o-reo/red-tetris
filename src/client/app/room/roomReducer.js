@@ -6,7 +6,9 @@ import {
     START_PARTY_SUCCESS,
     FETCH_PIECES_SUCCESS,
     GET_PIECE,
-    MOVE_PIECE, ROTATE_PIECE
+    MOVE_PIECE,
+    ROTATE_PIECE,
+    UPDATE_ROOM
 } from "./roomActions";
 import getNewPosition from "../../utils/getNewPosition";
 import {createShiftingArray, emptyCompleteRows, getUncompletedRows, putCurrentToBoard} from "../../utils/newPiece";
@@ -25,7 +27,7 @@ const initialState = () => {
         board: initialBoard(),
         current: null,
         pieces: [],
-        indexPiece: 0,
+        indexPieces: 0,
         username: null,
         room: null,
         gameIsStarted: null,
@@ -137,8 +139,8 @@ function room(state = initialState(), action) {
             return (movePiece(state, action));
         case ROTATE_PIECE:
             return rotatePiece(state);
-
-
+        case UPDATE_ROOM:
+            return (updateRoom(state, action));
         default:
             return state;
     }

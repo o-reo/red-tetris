@@ -17,6 +17,7 @@ function connectPlayer(socket, data) {
 
     // Handle pieces fetching
     socket.on('fetch pieces', (from, callback) => {
+        console.log(from);
         callback({pieces: games[data.room].fetchPieces(from)});
     });
 
