@@ -45,7 +45,7 @@ const StartButton = ({ isRoomLeader, gameIsStarted, startParty }) => {
 };
 
 const GameController = ({ isRoomLeader, piece0, piece1, piece2, gameIsStarted, startParty }) => {
-    console.log(gameIsStarted);
+    //console.log(gameIsStarted);
     return (
         <div style={gameControllerStyle}>
             <div>

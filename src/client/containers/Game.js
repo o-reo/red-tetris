@@ -21,8 +21,8 @@ const handleKey = (event, dispatch) => {
     }
 };
 
-const startParty = (dispatch) => {
-    document.addEventListener('keydown', (event) => handleKey(event, dispatch));
+const startParty = (dispatch, state) => {//Gmadec a rajouté state
+    document.addEventListener('keydown', (event) => {console.log("KEY_DOWN:");console.log(state.isListening);alert("KEY_DOWN");handleKey(event, dispatch)});
     dispatch(listenerGame());
     // setInterval(function () {
     //     dispatch(movePiece(BOTTOM))

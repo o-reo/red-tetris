@@ -1,6 +1,7 @@
 import React from 'react';
 import WebFont from 'webfontloader';
 import logo from "../assets/Le-101.png";
+import logo_42 from "../assets/42_lyon.png";
 
 WebFont.load({
     google: {
@@ -28,14 +29,14 @@ const fontStyle = {
 };
 
 const imageStyle = {
-    height: "10vh",
-    marginLeft: "2vh"
+    height: "6vh",
+    marginLeft: "10vh"
 };
 
 const Footer = () => (
     <div style={footerStyle}>
         <p style={fontStyle}>befuhro & gmadec</p>
-        <img src={logo} style={imageStyle} alt="le-101-logo" />
+        <img src={logo_42} style={imageStyle} alt="42_lyon-logo" />
     </div>
 );
 

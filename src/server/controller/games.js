@@ -8,7 +8,7 @@ const connectPlayer = (socket, data) => {
 
     // Handle Disconnection
     socket.on("disconnect", (reason) => {
-        console.log(data.username + " disconnected because " + reason);
+        //console.log(data.username + " disconnected because " + reason);
         games[data.room].deletePlayer(data.username);
         if (Object.keys(games[data.room].players).length === 0) {
             delete games[data.room];
@@ -41,7 +41,7 @@ const connectPlayer = (socket, data) => {
 const tryToConnect = (socket, data, callback) => {
     // If the room doesn't exist yet, the player create it and becomes the leader of this room.
     if (games[data.room] === undefined) {
-        console.log(data.username + "is connected.");
+        //console.log(data.username + "is connected.");
         games[data.room] = new Game(data.room, data.username);
         connectPlayer(socket, data);
         callback({connected: true, players: {}, isRoomLeader: true});
@@ -50,29 +50,29 @@ const tryToConnect = (socket, data, callback) => {
     else if (games[data.room].players[data.username] === undefined &&
         games[data.room].gameIsStarted !== true &&
         Object.keys(games[data.room].players).length < 4) {
-        console.log(data.username + "is connected.");
+        //console.log(data.username + "is connected.");
         connectPlayer(socket, data);
         callback({connected: true, players: games[data.room].getPlayersInfo(), isRoomLeader: false});
     }
     // The player can not enter the room if his name is already taken.
     else if (games[data.room].players[data.username]) {
-        console.log(data.username + "couldn't connect because his name is already taken.");
+        //console.log(data.username + "couldn't connect because his name is already taken.");
         callback({connected: false, error: "username already taken"});
         socket.disconnect();
     }
     // The player can not enter the room if the env has started.
     else if (games[data.room].gameIsStarted === true) {
-        console.log(data.username + "couldn't connect because the games has already started.");
+        //console.log(data.username + "couldn't connect because the games has already started.");
         callback({connected: false, error: "env is already started"});
         socket.disconnect();
     }
     // The player can not enter the room if there are already 4 people in the room.
     else if (Object.keys(games[data.room].players).length >= 4) {
-        console.log(data.username + "couldn't connect because the room is full.");
+        //console.log(data.username + "couldn't connect because the room is full.");
         callback({connected: false, error: "room is full"});
         socket.disconnect();
     } else {
-        console.log(data.username + "couldn't connect, but we don't know the reason.");
+        //console.log(data.username + "couldn't connect, but we don't know the reason.");
     }
 };
 

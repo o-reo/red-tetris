@@ -17,7 +17,7 @@ const rotatePieceMiddleware = store => next => action => {
             next(action);
         }
         else {
-            console.log(error);
+            //console.log(error);
             if (error.side === LEFT) {
                 next(movePiece(RIGHT));
             }

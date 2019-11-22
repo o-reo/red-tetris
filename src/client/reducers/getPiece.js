@@ -13,5 +13,8 @@ export const getPiece = (state) => {
     newState.pieces.shift();
     newState.indexPieces++;
     newState.current = piece;
+    console.log("NEW_STATE:");
+    console.log(newState);
+    //alert("PIECE");
     return (newState);
 };

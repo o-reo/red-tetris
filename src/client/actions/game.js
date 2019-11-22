@@ -29,6 +29,9 @@ export const fetchPieces = () => {
         dispatch(fetchPiecesRequest());
         socket.emit("fetch pieces", indexPiece, (data) => {
             if (data.pieces !== null) {
+                console.log("FETCH_PIECES:");
+                console.log(data.pieces);
+                alert("FETCH_PIECE")
                 dispatch(fetchPiecesSuccess(data.pieces));
             } else {
                 dispatch(fetchPiecesFailure());
