@@ -1,7 +1,7 @@
-import cloneDeep from "lodash/cloneDeep";
+import clone from "lodash/clone";
 
 export const rotatePiece = (state) => {
-    let newState = cloneDeep(state);
+    let newState = clone(state);
     const rotation = state.current.rotation[state.current.indexRotation - 1];
     newState.current.position.forEach((position, index) => {
         position.column += rotation[index].column;

@@ -1,8 +1,5 @@
 import clone from "lodash/clone";
-import {
-    CHECK_AVAILABILITY_FAILURE,
-    DELETE_ERRORS
-} from "../../actions/env/actions";
+import { CHECK_AVAILABILITY_FAILURE, DELETE_ERRORS} from "../../actions/env";
 
 const initialState = () => ({
     errors: null,

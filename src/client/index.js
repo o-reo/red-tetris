@@ -9,8 +9,8 @@ import {createLogger} from 'redux-logger';
 import rootReducer from './reducers';
 import Login from './containers/Login';
 import Room from './containers/Room';
-import rotatePieceMiddleware from './middlewares/room/RotatePiece'
-import movePieceMiddleware from './middlewares/room/MovePiece'
+import rotatePieceMiddleware from './middlewares/room/rotatePiece'
+import movePieceMiddleware from './middlewares/room/movePiece'
 import './assets/style.css';
 
 const loggerMiddleware = createLogger();

@@ -1,4 +1,4 @@
-import {MOVE_PIECE} from "../../actions/room/Game";
+import {MOVE_PIECE} from "../../actions/room";
 import checkNewPosition from "../../utils/checkNewPosition";
 import getNewPosition from "../../utils/getNewPosition";
 

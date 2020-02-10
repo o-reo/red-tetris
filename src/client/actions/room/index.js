@@ -1,7 +1,6 @@
 import io from "socket.io-client";
 import { roomConnection } from "../../utils/socketConnection";
 
-
 /*
 Room related Actions
 */

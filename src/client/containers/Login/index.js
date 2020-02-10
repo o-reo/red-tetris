@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 
 import Login from '../../components/Login';
-import {checkAvailability, deleteErrors} from "../../actions/env/actions";
+import {checkAvailability, deleteErrors} from "../../actions/env";
 
 const mapStateToProps = (state) => (
     {errors: state.login.errors}

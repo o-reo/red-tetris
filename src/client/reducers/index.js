@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import login from '../reducers/env/reducers';
-import room from '../reducers/room/roomReducer';
+import login from './env';
+import room from './room';
 
 export default combineReducers({
     login,

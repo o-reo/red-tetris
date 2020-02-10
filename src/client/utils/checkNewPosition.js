@@ -24,7 +24,7 @@ const checkNewPosition = (oldPosition, newPosition, board) => {
     } catch (e) {
         return (e);
     }
-    return (true);
+    return true;
 };
 
 export default checkNewPosition;

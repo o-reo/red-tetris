@@ -1,7 +1,6 @@
 import checkNewPosition from "../../utils/checkNewPosition";
-import { movePiece, ROTATE_PIECE } from "../../actions/room/Game";
+import { movePiece, ROTATE_PIECE } from "../../actions/room";
 import { TOP, BOTTOM, LEFT, RIGHT, ALREADY_TAKEN } from "../../utils/direction";
-// import { ROTATE_PIECE } from "../../../Store/Actions/Game";
 
 const rotatePieceMiddleware = store => next => action => {
     if (action.type === ROTATE_PIECE && store.getState().room.current !== null) {

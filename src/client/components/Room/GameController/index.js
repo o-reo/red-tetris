@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PieceView from './PieceView';
-import { startParty } from "../../../actions/room/roomActions";
+import { startParty } from "../../../actions/room";
 
 const gameControllerStyle = {
     justifySelf: 'end',

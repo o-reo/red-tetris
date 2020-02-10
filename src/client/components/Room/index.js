@@ -3,8 +3,8 @@ import WebFont from 'webfontloader';
 
 import GameController from '../../containers/Room/GameController';
 
-import { joinRoom } from "../../actions/room/roomActions";
-import { askPiece, movePiece, rotatePiece } from "../../actions/room/roomActions";
+import { joinRoom } from "../../actions/room";
+import { askPiece, movePiece, rotatePiece } from "../../actions/room";
 import {BOTTOM, LEFT, RIGHT} from "../../utils/direction";
 
 import Board from '../../containers/Room/Board';
