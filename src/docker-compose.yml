@@ -10,7 +10,7 @@ services:
                         - "3000:3000"
                 volumes:
                         - ./client:/opt/app/src
-                        - ./public/index.html:/opt/app/public/index.html
+                        - ./client/public/index.html:/opt/app/public/index.html
 
         server:
                 build: ./server

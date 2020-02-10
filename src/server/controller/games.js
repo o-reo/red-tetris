@@ -39,44 +39,6 @@ function connectPlayer(socket, data) {
     });
 }
 
-function tryToConnect(socket, data, callback) {
-    // If the room doesn't exist yet, the player create it and becomes the leader of this room.
-    if (games[data.room] === undefined) {
-        console.log(data.username + 'is connected.');
-        games[data.room] = new Game(data.room, data.username);
-        connectPlayer(socket, data);
-        callback({connected: true, players: {}, isRoomLeader: true});
-    }
-    // If nobody has the same name in the room, that the env hasn't started yet and there are less than 4 people is the room player can join the room
-    else if (games[data.room].players[data.username] === undefined &&
-        games[data.room].gameIsStarted !== true &&
-        Object.keys(games[data.room].players).length < 4) {
-        console.log(data.username + ' is connected.');
-        connectPlayer(socket, data);
-        callback({connected: true, players: games[data.room].getPlayersInfo(), isRoomLeader: false});
-    }
-    // The player can not enter the room if his name is already taken.
-    else if (games[data.room].players[data.username]) {
-        console.log(data.username + ' couldn\'t connect because his name is already taken.');
-        callback({connected: false, error: 'username already taken'});
-        socket.disconnect();
-    }
-    // The player can not enter the room if the board has started.
-    else if (games[data.room].gameIsStarted === true) {
-        console.log(data.username + ' couldn\'t connect because the games has already started.');
-        callback({connected: false, error: 'env is already started'});
-        socket.disconnect();
-    }
-    // The player can not enter the room if there are already 4 people in the room.
-    else if (Object.keys(games[data.room].players).length >= 4) {
-        console.log(data.username + 'couldn\'t connect because the room is full.');
-        callback({connected: false, error: 'room is full'});
-        socket.disconnect();
-    } else {
-        console.log(data.username + ' couldn\'t connect, but we don\'t know the reason.');
-    }
-}
-
 function checkAvailability(username, room) {
     console.log(username + ' wants to join room ' + room);
     let authData = {};
@@ -143,9 +105,6 @@ function handleRoomConnection(socket) {
             callback({isConnected: false, reasons: authData['reasons']});
             socket.disconnect();
         }
-
-
-
     });
 }
 

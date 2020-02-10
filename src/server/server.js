@@ -8,4 +8,4 @@ server.listen(8080);
 
 const room = io.of("/room");
 
-room.on("connection", (socket) => { gameController.handleRoomConnection(socket) });
+room.on("connection", (socket) => { gameController.handleRoomConnection(socket)});
