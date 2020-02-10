@@ -1,8 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
 
 import PopUp from './PopUp';
-import { checkAvailability, deleteErrors } from './loginActions';
 
 const pageStyle = {
     position: 'fixed',
@@ -44,15 +42,15 @@ const form = {
     alignItems: 'center'
 };
 
-function authenticate(e, checkAvailability) {
+const authenticate = (e, checkAvailability) => {
     const username = document.getElementById("username").value;
     const room = document.getElementById("room").value;
 
     e.preventDefault();
     checkAvailability(username, room);
-}
+};
 
-function Login({errors, checkAvailability, deleteErrors}) {
+export default ({errors, checkAvailability, deleteErrors}) => {
     return (
         <div style={pageStyle}>
             <div style={blockStyle}>
@@ -67,7 +65,7 @@ function Login({errors, checkAvailability, deleteErrors}) {
                     <input type="text" id="room" required/>
                     <button style={buttonStyle} type="submit">Join game</button>
                 </form>
-                {errors !== null && errors !== undefined ?
+                {errors ?
                     <PopUp
                         errors={errors}
                         deleteErrors={deleteErrors}
@@ -78,14 +76,3 @@ function Login({errors, checkAvailability, deleteErrors}) {
         </div>
     );
 }
-
-const mapStateToProps = (state) => (
-    {errors: state.login.errors}
-);
-
-const mapDispatchToProps = (dispatch) => ({
-    checkAvailability: (userName, room) => dispatch(checkAvailability(userName, room)),
-    deleteErrors: () => dispatch(deleteErrors()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);

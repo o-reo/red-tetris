@@ -9,7 +9,7 @@ import {
     MOVE_PIECE,
     ROTATE_PIECE,
     UPDATE_ROOM
-} from "./roomActions";
+} from "../../actions/room/roomActions";
 import getNewPosition from "../../utils/getNewPosition";
 import {createShiftingArray, emptyCompleteRows, getUncompletedRows, putCurrentToBoard} from "../../utils/newPiece";
 // import {startParty} from "./controller/controllerActions";

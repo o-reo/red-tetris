@@ -1,8 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import PieceView from './PieceView';
-import {startParty} from "../roomActions";
+import { startParty } from "../../../actions/room/roomActions";
 
 const gameControllerStyle = {
     justifySelf: 'end',
@@ -45,7 +44,7 @@ function StartButton({ isRoomLeader, gameIsStarted, dispatch }) {
     );
 }
 
-function Controller({ isRoomLeader, gameIsStarted, firstPiece, secondPiece, thirdPiece, dispatch}) {
+export default ({ isRoomLeader, gameIsStarted, firstPiece, secondPiece, thirdPiece, dispatch}) => {
     return (
         <div style={gameControllerStyle}>
             <div>
@@ -56,15 +55,3 @@ function Controller({ isRoomLeader, gameIsStarted, firstPiece, secondPiece, thir
             <StartButton isRoomLeader={isRoomLeader} gameIsStarted={gameIsStarted} dispatch={ dispatch }/>
         </div>);
 }
-
-const mapStateToProps = (state) => ({
-    isRoomLeader: state.room.isRoomLeader,
-    firstPiece: state.room.pieces[0],
-    secondPiece: state.room.pieces[1],
-    thirdPiece: state.room.pieces[2],
-    gameIsStarted: state.room.gameIsStarted,
-});
-
-const mapDispatchToProps = dispatch => ({ dispatch: dispatch });
-
-export default connect(mapStateToProps, mapDispatchToProps)(Controller);

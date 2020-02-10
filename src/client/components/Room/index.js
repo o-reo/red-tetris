@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
-import {connect} from 'react-redux';
 import WebFont from 'webfontloader';
 
-import GameController from './controller/Controller';
-// import { env } from '../../Store/Actions/Env';
-import Board from './board/Board';
-import {joinRoom} from "./roomActions";
-import PopUp from './PopUp';
-import Footer from "../Footer";
-import {askPiece, movePiece, rotatePiece} from "./roomActions";
+import GameController from '../../containers/Room/GameController';
+
+import { joinRoom } from "../../actions/room/roomActions";
+import { askPiece, movePiece, rotatePiece } from "../../actions/room/roomActions";
 import {BOTTOM, LEFT, RIGHT} from "../../utils/direction";
+
+import Board from '../../containers/Room/Board';
+import PopUp from './PopUp';
+import Footer from "../shared/Footer";
 
 WebFont.load({google: {families: ['Permanent Marker', 'Orbitron: black']}});
 
@@ -38,9 +38,7 @@ function handleKey(event, dispatch) {
     }
 }
 
-function Room({dispatch, errors, match: {params}}) {
-
-    console.log(window.RTCPeerConnection);
+export default ({dispatch, errors, match: {params}}) => {
 
     useEffect(() => {
         dispatch(joinRoom(params.player, params.room));
@@ -61,11 +59,3 @@ function Room({dispatch, errors, match: {params}}) {
         </div>
     )
 }
-
-const mapStateToProps = (state) => ({
-    errors: state.room.errors
-});
-
-const mapDispatchToProps = dispatch => ({ dispatch: dispatch });
-
-export default connect(mapStateToProps, mapDispatchToProps)(Room);

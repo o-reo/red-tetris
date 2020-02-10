@@ -1,6 +1,6 @@
 // import { updateRoom } from "../Store/Actions/Env";
-import { updateRoom } from "../app/room/roomActions";
-import { askPiece } from "../Store/Actions/Game";
+import { updateRoom } from "../actions/room/roomActions";
+import { askPiece } from "../actions/room/Game";
 
 export const roomConnection = (socket, dispatch) => {
 

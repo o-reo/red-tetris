@@ -6,11 +6,11 @@ import {createStore, applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import {createLogger} from 'redux-logger';
 
-import rootReducer from './Store/Reducers/index.js';
-import Login from './app/login/Login';
-import Room from './app/room/Room';
-import rotatePieceMiddleware from './app/room/Middlewares/RotatePiece'
-import movePieceMiddleware from './app/room/Middlewares/MovePiece'
+import rootReducer from './reducers';
+import Login from './containers/Login';
+import Room from './containers/Room';
+import rotatePieceMiddleware from './middlewares/room/RotatePiece'
+import movePieceMiddleware from './middlewares/room/MovePiece'
 import './assets/style.css';
 
 const loggerMiddleware = createLogger();

@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import clone from 'lodash/clone';
-// import PropTypes from 'prop-types';
+import React  from 'react';
 
-import Square from '../square/Square';
-import logo from '../../../assets/logo.svg';
+import Square from './Square';
+import logo from '../../assets/logo.svg';
 
 const mainBlockStyle = {
     width: '35vh',
@@ -39,14 +36,7 @@ const boardStyle = {
     borderStyle: 'inset'
 };
 
-function insertCurrentIntoBoard(board, current) {
-    for (let i = 0; i < 4; i++) {
-        board[(current.position[i].row * 10) + current.position[i].column].color = current.color;
-    }
-    return (board);
-}
-
-function Board({board}) {
+export default ({board}) => {
     return (
         <div style={mainBlockStyle} id={'env'}>
             <img src={logo} className='App-logo' alt='react-logo'/>
@@ -64,17 +54,3 @@ function Board({board}) {
         </div>
     )
 }
-
-const mapStateToProps = (state) => {
-    let board = state.room.board.map((square) => clone(square));
-    if (state.room.current !== null) {
-        board = insertCurrentIntoBoard(board, state.room.current);
-    }
-    return ({board});
-};
-
-const mapDispatchToProps = (dispatch) => ({
-    dispatch: dispatch,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Board);

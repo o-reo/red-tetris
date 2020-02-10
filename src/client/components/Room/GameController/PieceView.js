@@ -1,7 +1,6 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 
-import Square from '../square/Square';
+import Square from '../Square';
 
 const pieceViewStyle = {
     width: '11.95vh',

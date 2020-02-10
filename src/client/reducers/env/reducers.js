@@ -2,7 +2,7 @@ import clone from "lodash/clone";
 import {
     CHECK_AVAILABILITY_FAILURE,
     DELETE_ERRORS
-} from "./loginActions";
+} from "../../actions/env/actions";
 
 const initialState = () => ({
     errors: null,

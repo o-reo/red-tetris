@@ -1,7 +1,7 @@
 import React from 'react';
 import WebFont from 'webfontloader';
 
-import logo from '../assets/Le-101.png';
+import logo from '../../assets/Le-101.png';
 
 WebFont.load({
     google: {

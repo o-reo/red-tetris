@@ -1,6 +1,6 @@
-import {MOVE_PIECE} from "../../../Store/Actions/Game";
-import checkNewPosition from "../../../utils/checkNewPosition";
-import getNewPosition from "../../../utils/getNewPosition";
+import {MOVE_PIECE} from "../../actions/room/Game";
+import checkNewPosition from "../../utils/checkNewPosition";
+import getNewPosition from "../../utils/getNewPosition";
 
 const movePieceMiddleware = store => next => action => {
     if (action.type === MOVE_PIECE && store.getState().room.current !== null) {
