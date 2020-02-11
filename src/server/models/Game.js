@@ -31,7 +31,7 @@ class Game {
     }
 
     addPlayer(playerName, socket) {
-        this.players[playerName] = new Player(playerName, socket);
+        this.players[playerName] = new Player(playerName, socket, this.name);
     }
 
     getPlayerList() {

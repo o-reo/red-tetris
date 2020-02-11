@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import WebFont from 'webfontloader';
 
 import GameController from '../../containers/Room/GameController';
+import GameWatcher from "../../containers/Room/GameWatcher";
 
 import { joinRoom } from "../../actions/room";
 import { askPiece, movePiece, rotatePiece } from "../../actions/room";
@@ -48,7 +49,7 @@ export default ({dispatch, errors, match: {params}}) => {
         <div onKeyDown={(e) => handleKey(e, dispatch)} tabIndex={0} >
             {errors === null ?
                 <div style={gameStyle}>
-                    {/*<GameWatcherComponent/>*/}
+                    <GameWatcher/>
                     <Board/>
                     <GameController/>
                 </div>

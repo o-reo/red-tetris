@@ -1,4 +1,4 @@
-import { updateRoom, askPiece } from "../actions/room";
+import { updateRoom, askPiece, updateSpectrum } from "../actions/room";
 
 export const roomConnection = (socket, dispatch) => {
     // Handle opponent connection and disconnection
@@ -9,6 +9,8 @@ export const roomConnection = (socket, dispatch) => {
     socket.on("opponent disconnection", (data) => {
         dispatch(updateRoom(data.players, data.leaderName));
     });
+
+    socket.on('new spectrum', (data) => dispatch(updateSpectrum(data.username, data.spectrum)));
 
     // Handle party launching
     socket.on("launch party", () => {

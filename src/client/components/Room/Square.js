@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-// import PropTypes from 'prop-types';
 
 const squareStyle = {
     height: '2.5vh',
@@ -10,6 +9,7 @@ const squareStyle = {
     borderColor: '#749099'
 };
 
+const realWhiteSquare = {backgroundColor: '#ffffff'};
 const whiteSquare = {backgroundColor: '#5a6978'};
 const redSquare = {backgroundColor: '#e12108'};
 const darkblueSquare = {backgroundColor: '#262ee6'};
@@ -19,20 +19,27 @@ const lightblueSquare = {backgroundColor: '#16e3dc'};
 const purpleSquare = {backgroundColor: '#b500ec'};
 const orangeSquare = {backgroundColor: '#ff9b00'};
 
-function Square({index, color}) {
-    if (color === 'white') { return <div style={Object.assign({}, squareStyle, whiteSquare)} > </div> }
-    if (color === 'red') { return <div style={Object.assign({}, squareStyle, redSquare)} > </div> }
-    if (color === 'darkblue') { return <div style={Object.assign({}, squareStyle, darkblueSquare)} > </div> }
-    if (color === 'yellow') { return <div style={Object.assign({}, squareStyle, yellowSquare)} > </div> }
-    if (color === 'green') { return <div style={Object.assign({}, squareStyle, greenSquare)} > </div> }
-    if (color === 'lightblue') { return <div style={Object.assign({}, squareStyle, lightblueSquare)} > </div> }
-    if (color === 'purple') { return <div style={Object.assign({}, squareStyle, purpleSquare)} > </div> }
-    if (color === 'orange') { return <div style={Object.assign({}, squareStyle, orangeSquare)} > </div> }
+function Square({color, size}) {
+    switch (color) {
+        case 'realwhite':
+            return <div style={{...squareStyle, ...realWhiteSquare, ...size}} > </div>;
+        case 'red':
+            return <div style={{...squareStyle, ...redSquare, ...size}} > </div>;
+        case 'darkblue':
+            return <div style={{...squareStyle, ...darkblueSquare, ...size}} > </div>;
+        case 'yellow':
+            return <div style={{...squareStyle, ...yellowSquare, ...size}} > </div>;
+        case 'green':
+            return <div style={{...squareStyle, ...greenSquare, ...size}} > </div>;
+        case 'lightblue':
+            return <div style={{...squareStyle, ...lightblueSquare, ...size}} > </div>;
+        case 'purple':
+            return <div style={{...squareStyle, ...purpleSquare, ...size}} > </div>;
+        case 'orange':
+            return <div style={{...squareStyle, ...orangeSquare, ...size}} > </div>;
+        default:
+            return <div style={{...squareStyle, ...whiteSquare, ...size}} > </div>;
+    }
 }
-
-// Square.propTypes = {
-//     index: PropTypes.number.isRequired,
-//     color: PropTypes.string.isRequired
-// };
 
 export default connect()(Square);

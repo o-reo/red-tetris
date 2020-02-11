@@ -1,12 +1,13 @@
 import {
     JOIN_ROOM_SUCCESS,
     JOIN_ROOM_FAILURE,
+    UPDATE_SPECTRUM,
     START_PARTY_SUCCESS,
     FETCH_PIECES_SUCCESS,
     GET_PIECE,
     MOVE_PIECE,
     ROTATE_PIECE,
-    UPDATE_ROOM
+    UPDATE_ROOM,
 } from "../../actions/room";
 
 import {joinRoomFailure, updateRoom, joinRoomSuccess} from "./room";
@@ -15,6 +16,7 @@ import {movePiece} from "./movePiece";
 import {getPiece} from "./getPiece";
 import {rotatePiece} from "./rotatePiece";
 import {fetchPieces} from "./fetchPieces";
+import {updateSpectrum} from "./spectrum";
 
 const initialState = () => ({
     board: Array(200).fill({color: "white"}).map((square, index) => (
@@ -27,7 +29,7 @@ const initialState = () => ({
     gameIsStarted: null,
     socket: null,
     isRoomLeader: null,
-    players: null,
+    players: {},
     errors: null
 });
 
@@ -49,6 +51,8 @@ export default (state = initialState(), action) => {
             return rotatePiece(state);
         case UPDATE_ROOM:
             return (updateRoom(state, action));
+        case UPDATE_SPECTRUM:
+            return (updateSpectrum(state, action));
         default:
             return state;
     }

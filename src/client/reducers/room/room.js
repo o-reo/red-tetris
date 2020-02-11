@@ -21,7 +21,11 @@ export const joinRoomFailure = (state, action) => {
 export const updateRoom = (state, action) => {
     let newState = clone(state);
 
+
     newState.players = action.players;
+    if (newState.players[state.username]) {
+        delete newState.players[state.username];
+    }
     if (action.leaderName === state.username) {
         newState.isRoomLeader = true;
     }

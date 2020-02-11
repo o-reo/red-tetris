@@ -42,6 +42,11 @@ export const leaveRoom = () => ({ type: LEAVE_ROOM });
 export const UPDATE_ROOM = "UPDATE_ROOM";
 export const updateRoom = (players, leaderName) => ({ type: UPDATE_ROOM, players: players, leaderName: leaderName });
 
+/*
+Spectrum related actions.
+*/
+export const UPDATE_SPECTRUM = 'UPDATE_SPECTRUM';
+export const updateSpectrum = (playerName, spectrum) => ({type: UPDATE_SPECTRUM, playerName: playerName, spectrum: spectrum});
 
 /*
 Pieces related actions.

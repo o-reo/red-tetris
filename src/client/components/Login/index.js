@@ -1,6 +1,7 @@
 import React from 'react';
 
 import PopUp from './PopUp';
+import Footer from '../shared/Footer';
 
 const pageStyle = {
     position: 'fixed',
@@ -73,6 +74,7 @@ export default ({errors, checkAvailability, deleteErrors}) => {
                     null
                 }
             </div>
+            <Footer/>
         </div>
     );
 }

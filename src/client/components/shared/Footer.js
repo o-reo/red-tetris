@@ -37,7 +37,7 @@ const imageStyle = {
 function Footer() {
     return (
         <div style={footerStyle}>
-            <p style={fontStyle}>befuhro & gmadec</p>
+            <p style={fontStyle}>befuhro & eruaud</p>
             <img src={logo} style={imageStyle} alt='le-101-logo'/>
         </div>
     );
