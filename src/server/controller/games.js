@@ -15,6 +15,10 @@ function connectPlayer(socket, data) {
         }
     });
 
+    socket.on('update spectrum', (spectrum) => {
+       games[data.room].players[data.username].updateSpectrum(spectrum);
+    });
+
     // Handle pieces fetching
     socket.on('fetch pieces', (from, callback) => {
         console.log(from);

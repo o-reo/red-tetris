@@ -1,7 +1,6 @@
 import { updateRoom, askPiece } from "../actions/room";
 
 export const roomConnection = (socket, dispatch) => {
-
     // Handle opponent connection and disconnection
     socket.on("opponent connection", (data) => {
         console.log(data);

@@ -16,8 +16,6 @@ import {getPiece} from "./getPiece";
 import {rotatePiece} from "./rotatePiece";
 import {fetchPieces} from "./fetchPieces";
 
-
-
 const initialState = () => ({
     board: Array(200).fill({color: "white"}).map((square, index) => (
         {...square, ...{row: Math.floor(index / 10), column: index % 10}})),
