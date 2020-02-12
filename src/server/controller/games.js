@@ -21,29 +21,43 @@ function connectPlayer(socket, data) {
 
     // Handle pieces fetching
     socket.on('fetch pieces', (from, callback) => {
-        console.log(from);
-        callback({pieces: games[data.room].fetchPieces(from)});
+        console.log('fetching pieces from ' + from);
+		callback({pieces: games[data.room].fetchPieces(from)});
     });
 
     // Handle party launching
     socket.on('start party', (callback) => {
         if (socket.id === Object.values(games[data.room].players)[0].socket.id) {
+			console.log('game of room ' + data.room + ' has now started');
             callback({authorizedToLaunchParty: true});
-            games[data.room].gameIsStarted = true;
+            games[data.room].gameIsStarted = true;i
             socket.to(data.room).emit('launch party');
         } else {
+			console.log('could not launch game of room ' + data.room);
             callback({authorizedToLaunchParty: false});
         }
     });
     
+	/*
+	 * Sets the time between each move aka the interval
+	*/
 	socket.on('set interval', (value, callback) => {
         if (socket.id === Object.values(games[data.room].players)[0].socket.id) {
 			console.log("Updating interval");
 			games[data.room].setInterval(value);
+			callback({interval: games[data.room].interval});
 		} else {
 			console.log("Interval update unauthorized");
+			callback({error: 'unauthorized', interval: games[data.room].interval});
         }
     });
+
+	/*
+	 * Returns the time between each move
+	*/
+	socket.on('get interval', (callback) => {
+		callback({interval: games[data.room].interval);
+	});
 
 
     // Broadcast when a opponent joins the room.

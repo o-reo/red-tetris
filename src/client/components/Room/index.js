@@ -39,8 +39,9 @@ function handleKey(dispatch, interval) {
             case 'ArrowUp':
                 dispatch(rotatePiece());
                 break;
-
-        }
+			default:
+				break;
+		}
     }
 }
 
