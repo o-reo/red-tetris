@@ -1,7 +1,12 @@
-import React  from 'react';
+import React, { useEffect } from 'react';
+
+import {BOTTOM} from "../../utils/direction";
+import {  movePiece, changeInterval } from "../../actions/room";
 
 import Square from './Square';
 import logo from '../../assets/logo.svg';
+
+
 
 const mainBlockStyle = {
     width: '35vh',
@@ -36,7 +41,12 @@ const boardStyle = {
     borderStyle: 'inset'
 };
 
-export default ({board}) => {
+export default ({ board }) => {
+
+    useEffect(() => {
+    });
+
+
     return (
         <div style={mainBlockStyle} id={'env'}>
             <img src={logo} className='App-logo' alt='react-logo'/>
