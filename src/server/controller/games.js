@@ -56,7 +56,7 @@ function connectPlayer(socket, data) {
 	 * Returns the time between each move
 	*/
 	socket.on('get interval', (callback) => {
-		callback({interval: games[data.room].interval);
+		callback({interval: games[data.room].interval});
 	});
 
 
