@@ -4,7 +4,7 @@ export const movePiece = (state, action) => ({
     ...state, ...{
         current: {
             ...state.current,
-            lastMove: Math.floor(Date.now() / 100),
+            previousPosition: state.current &&  state.current.position ? state.current.position : null,
             position: getNewPosition(state.current.position, action.direction)
         }
     }

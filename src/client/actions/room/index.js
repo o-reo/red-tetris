@@ -94,6 +94,9 @@ export const movePiece = (direction) => ({type: MOVE_PIECE, direction: direction
 export const ROTATE_PIECE = 'ROTATE_PIECE';
 export const rotatePiece = () => ({type: ROTATE_PIECE});
 
+export const CHANGE_INTERVAL = 'CHANGE_INTERVAL';
+export const changeInterval = (interval) => ({type: CHANGE_INTERVAL, interval: interval});
+
 /*
 Party related actions.
 */

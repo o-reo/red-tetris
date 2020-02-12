@@ -1,4 +1,5 @@
-import {MOVE_PIECE} from "../../actions/room";
+import {askPiece, getPiece, MOVE_PIECE} from "../../actions/room";
+import {BOTTOM} from "../../utils/direction";
 import checkNewPosition from "../../utils/checkNewPosition";
 import getNewPosition from "../../utils/getNewPosition";
 
@@ -11,7 +12,9 @@ const movePieceMiddleware = store => next => action => {
             next(action);
         }
         else {
-
+            if (action.direction === BOTTOM) {
+                store.dispatch(askPiece());
+            }
         }
     }
     else if (action.type === MOVE_PIECE && store.getState().room.current === null) {}

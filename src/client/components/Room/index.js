@@ -4,9 +4,8 @@ import WebFont from 'webfontloader';
 import GameController from '../../containers/Room/GameController';
 import GameWatcher from "../../containers/Room/GameWatcher";
 
-import { joinRoom } from "../../actions/room";
-import { askPiece, movePiece, rotatePiece } from "../../actions/room";
-import {BOTTOM, LEFT, RIGHT} from "../../utils/direction";
+import { joinRoom, askPiece, movePiece, rotatePiece } from "../../actions/room";
+import { BOTTOM, LEFT, RIGHT } from "../../utils/direction";
 
 import Board from '../../containers/Room/Board';
 import PopUp from './PopUp';
@@ -41,13 +40,20 @@ function handleKey(dispatch) {
     }
 }
 
-export default ({dispatch, errors, match: {params}}) => {
+export default ({dispatch, intervalMove, errors, match: {params}}) => {
 
     useEffect(() => {
         dispatch(joinRoom(params.player, params.room));
         const curriedEvent = handleKey(dispatch);
+        const interval = setInterval(() => {
+            dispatch(movePiece(BOTTOM));
+        }, intervalMove);
         document.addEventListener('keydown', curriedEvent);
-        return () => document.removeEventListener('keydown', curriedEvent);
+
+        return () => {
+            document.removeEventListener('keydown', curriedEvent);
+            clearInterval(interval);
+        }
     });
 
     return (

@@ -3,8 +3,8 @@ import React from 'react';
 import Square from '../Square';
 
 const pieceViewStyle = {
-    width: '11.95vh',
-    height: '11.95vh',
+    width: '6.8vh',
+    height: '6.8vh',
     margin: '2.5vh',
     display: 'flex',
     flexWrap: 'wrap',
@@ -31,6 +31,7 @@ function PieceView({ piece }) {
         {
             array.map((square, index) =>
                 <Square
+                    size={{width: '1.5vh', height: '1.5vh', borderWidth: '0.1vh'}}
                     key={index}
                     index={index}
                     color={square.color}
@@ -38,9 +39,5 @@ function PieceView({ piece }) {
         }
     </div>);
 }
-
-// PieceView.propTypes = {
-//     piece: PropTypes.object.isRequired,
-// };
 
 export default PieceView;

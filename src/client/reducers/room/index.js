@@ -8,6 +8,7 @@ import {
     MOVE_PIECE,
     ROTATE_PIECE,
     UPDATE_ROOM,
+    CHANGE_INTERVAL
 } from "../../actions/room";
 
 import {joinRoomFailure, updateRoom, joinRoomSuccess} from "./room";
@@ -17,12 +18,14 @@ import {getPiece} from "./getPiece";
 import {rotatePiece} from "./rotatePiece";
 import {fetchPieces} from "./fetchPieces";
 import {updateSpectrum} from "./spectrum";
+import {changeInterval} from "./changeInterval";
 
 const initialState = () => ({
     board: Array(200).fill({color: "white"}).map((square, index) => (
         {...square, ...{row: Math.floor(index / 10), column: index % 10}})),
     current: null,
     pieces: [],
+    intervalMove: 250,
     indexPieces: 0,
     username: null,
     room: null,
@@ -53,6 +56,8 @@ export default (state = initialState(), action) => {
             return (updateRoom(state, action));
         case UPDATE_SPECTRUM:
             return (updateSpectrum(state, action));
+        case CHANGE_INTERVAL:
+            return (changeInterval(state, action));
         default:
             return state;
     }

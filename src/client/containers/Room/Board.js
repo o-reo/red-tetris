@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import clone from 'lodash/clone';
+import cloneDeep from 'lodash/cloneDeep';
 
 import Board from '../../components/Room/Board';
 
@@ -11,11 +11,9 @@ const insertCurrentIntoBoard = (board, current) => {
 };
 
 const mapStateToProps = (state) => {
-    let board = state.room.board.map((square) => clone(square));
-    if (state.room.current !== null) {
-        board = insertCurrentIntoBoard(board, state.room.current);
-    }
-    return ({board});
+    let board = cloneDeep(state.room.board);
+    board = state.room.current ? insertCurrentIntoBoard(board, state.room.current) : board;
+    return ({board: board, intervalMove: state.room.intervalMove});
 };
 
 const mapDispatchToProps = (dispatch) => ({
