@@ -35,6 +35,16 @@ function connectPlayer(socket, data) {
             callback({authorizedToLaunchParty: false});
         }
     });
+    
+	socket.on('set interval', (value, callback) => {
+        if (socket.id === Object.values(games[data.room].players)[0].socket.id) {
+			console.log("Updating interval");
+			games[data.room].setInterval(value);
+		} else {
+			console.log("Interval update unauthorized");
+        }
+    });
+
 
     // Broadcast when a opponent joins the room.
     socket.to(data.room).emit('opponent connection', {
