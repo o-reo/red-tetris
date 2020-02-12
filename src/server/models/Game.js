@@ -43,7 +43,7 @@ class Game {
     }
 	
 	setInterval(value) {
-		if (value > 0 && value < 1000)
+		if (value > 0 && value < 10)
 			this.interval = value;
 	}
 

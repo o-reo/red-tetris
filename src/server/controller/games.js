@@ -2,6 +2,9 @@ const Game = require('../models/Game');
 
 let games = {};
 
+/*
+ * Handles every real time access to game data
+*/
 function connectPlayer(socket, data) {
     games[data.room].addPlayer(data.username, socket);
     socket.join(data.room);
@@ -51,6 +54,22 @@ function connectPlayer(socket, data) {
 			callback({error: 'unauthorized', interval: games[data.room].interval});
         }
     });
+
+	/*
+	 * Fires when a piece has been placed
+	*/
+	socket.on('piece placed', (piece_num, callback) => {
+		let score = game[data.room].players[data.username].score++;
+		callback({score: game[data.room].players[data.username].score});
+	});
+
+	/*
+	 * Fires when the player can't play anymore (piece is out of board)
+	*/
+	socket.on('player ended', (callback) => {
+		game[data.room].players[data.username].ended = true;
+		callback({end: true, score: game[data.room].players[data.username].score});
+	});
 
 	/*
 	 * Returns the time between each move
