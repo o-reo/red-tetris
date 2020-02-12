@@ -2,6 +2,9 @@ const Game = require('../models/Game');
 
 let games = {};
 
+/*
+ * Handles every real time access to game data
+*/
 function connectPlayer(socket, data) {
     games[data.room].addPlayer(data.username, socket);
     socket.join(data.room);
@@ -21,20 +24,60 @@ function connectPlayer(socket, data) {
 
     // Handle pieces fetching
     socket.on('fetch pieces', (from, callback) => {
-        console.log(from);
-        callback({pieces: games[data.room].fetchPieces(from)});
+        console.log('fetching pieces from ' + from);
+		callback({pieces: games[data.room].fetchPieces(from)});
     });
 
     // Handle party launching
     socket.on('start party', (callback) => {
         if (socket.id === Object.values(games[data.room].players)[0].socket.id) {
+			console.log('game of room ' + data.room + ' has now started');
             callback({authorizedToLaunchParty: true});
-            games[data.room].gameIsStarted = true;
+            games[data.room].gameIsStarted = true;i
             socket.to(data.room).emit('launch party');
         } else {
+			console.log('could not launch game of room ' + data.room);
             callback({authorizedToLaunchParty: false});
         }
     });
+    
+	/*
+	 * Sets the time between each move aka the interval
+	*/
+	socket.on('set interval', (value, callback) => {
+        if (socket.id === Object.values(games[data.room].players)[0].socket.id) {
+			console.log("Updating interval");
+			games[data.room].setInterval(value);
+			callback({interval: games[data.room].interval});
+		} else {
+			console.log("Interval update unauthorized");
+			callback({error: 'unauthorized', interval: games[data.room].interval});
+        }
+    });
+
+	/*
+	 * Fires when a piece has been placed
+	*/
+	socket.on('piece placed', (piece_num, callback) => {
+		let score = game[data.room].players[data.username].score++;
+		callback({score: game[data.room].players[data.username].score});
+	});
+
+	/*
+	 * Fires when the player can't play anymore (piece is out of board)
+	*/
+	socket.on('player ended', (callback) => {
+		game[data.room].players[data.username].ended = true;
+		callback({end: true, score: game[data.room].players[data.username].score});
+	});
+
+	/*
+	 * Returns the time between each move
+	*/
+	socket.on('get interval', (callback) => {
+		callback({interval: games[data.room].interval});
+	});
+
 
     // Broadcast when a opponent joins the room.
     socket.to(data.room).emit('opponent connection', {

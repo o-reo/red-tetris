@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
 
-import {BOTTOM} from "../../utils/direction";
-import {  movePiece, changeInterval } from "../../actions/room";
-
 import Square from './Square';
 import logo from '../../assets/logo.svg';
 

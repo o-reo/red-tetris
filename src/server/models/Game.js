@@ -9,7 +9,8 @@ class Game {
         this.leaderName = leaderName;
         this.Pieces = [];
         this.gameIsStarted = false;
-        this.addPieces(10);
+        this.interval = 250;
+		this.addPieces(10);
     }
 
     addPiece() {
@@ -40,6 +41,11 @@ class Game {
         Object.entries(copyPlayers).forEach(([key]) => list.push(key));
         return (list);
     }
+	
+	setInterval(value) {
+		if (value > 0 && value < 10)
+			this.interval = value;
+	}
 
     getPlayersInfo() {
         let infos = cloneDeep(this.players);

@@ -1,7 +1,9 @@
 class Player {
     constructor(username, socket, room) {
         this.username = username;
-        this.socket = socket;
+        this.score = 0;
+		this.ended = false;
+		this.socket = socket;
         this.room = room;
         this.spectrum = [];
         for (let i = 0; i < 20; i++) {
