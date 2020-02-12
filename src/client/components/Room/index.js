@@ -4,8 +4,8 @@ import WebFont from 'webfontloader';
 import GameController from '../../containers/Room/GameController';
 import GameWatcher from "../../containers/Room/GameWatcher";
 
-import { joinRoom, askPiece, movePiece, rotatePiece } from "../../actions/room";
-import { BOTTOM, LEFT, RIGHT } from "../../utils/direction";
+import { joinRoom, movePiece, rotatePiece } from "../../actions/room";
+import { BOTTOM, LEFT, RIGHT, LOWEST } from "../../utils/direction";
 
 import Board from '../../containers/Room/Board';
 import PopUp from './PopUp';
@@ -18,9 +18,12 @@ const gameStyle = {
     justifyContent: 'space-around'
 };
 
-function handleKey(dispatch) {
+function handleKey(dispatch, interval) {
     return function(e) {
         switch (e.key) {
+            case 'Escape':
+                clearInterval(interval);
+                break;
             case 'ArrowLeft':
                 dispatch(movePiece(LEFT));
                 break;
@@ -30,12 +33,13 @@ function handleKey(dispatch) {
             case 'ArrowDown':
                 dispatch(movePiece(BOTTOM));
                 break;
+            case ' ':
+                dispatch(movePiece(LOWEST));
+                break;
             case 'ArrowUp':
                 dispatch(rotatePiece());
                 break;
-            case ' ':
-                dispatch(askPiece());
-                break;
+
         }
     }
 }
@@ -44,10 +48,11 @@ export default ({dispatch, intervalMove, errors, match: {params}}) => {
 
     useEffect(() => {
         dispatch(joinRoom(params.player, params.room));
-        const curriedEvent = handleKey(dispatch);
         const interval = setInterval(() => {
             dispatch(movePiece(BOTTOM));
         }, intervalMove);
+
+        const curriedEvent = handleKey(dispatch, interval);
         document.addEventListener('keydown', curriedEvent);
 
         return () => {
