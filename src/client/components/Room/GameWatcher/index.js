@@ -35,10 +35,10 @@ const Spectrum = ({playerName, spectrum}) =>
         {playerName}
         <div style={specBoardType}>
             {
-                spectrum.map(line =>
-                        line.map(bloc => bloc === 1 ?
-                        <Square color={'realwhite'} size={{width: '1vh', height: '1vh', borderWidth: '0.1vh'}}/> :
-                        <Square color={'white'} size={{width: '1vh', height: '1vh', borderWidth: '0.1vh'}}/>)
+                spectrum.map((line, lineIndex) =>
+                        line.map((bloc, blockIndex) => bloc === 1 ?
+                        <Square key={ lineIndex + blockIndex } color={ 'realwhite'} size={{width: '1vh', height: '1vh', borderWidth: '0.1vh'}}/> :
+                        <Square key={ lineIndex + blockIndex } color={ 'white' } size={{width: '1vh', height: '1vh', borderWidth: '0.1vh'}}/>)
                 )
             }
         </div>

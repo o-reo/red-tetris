@@ -19,23 +19,25 @@ const gameStyle = {
     justifyContent: 'space-around'
 };
 
-function handleKey(event, dispatch) {
-    switch (event.key) {
-        case 'ArrowLeft':
-            dispatch(movePiece(LEFT));
-            break;
-        case 'ArrowRight':
-            dispatch(movePiece(RIGHT));
-            break;
-        case 'ArrowDown':
-            dispatch(movePiece(BOTTOM));
-            break;
-        case 'ArrowUp':
-            dispatch(rotatePiece());
-            break;
-        case ' ':
-            dispatch(askPiece());
-            break;
+function handleKey(dispatch) {
+    return function(e) {
+        switch (e.key) {
+            case 'ArrowLeft':
+                dispatch(movePiece(LEFT));
+                break;
+            case 'ArrowRight':
+                dispatch(movePiece(RIGHT));
+                break;
+            case 'ArrowDown':
+                dispatch(movePiece(BOTTOM));
+                break;
+            case 'ArrowUp':
+                dispatch(rotatePiece());
+                break;
+            case ' ':
+                dispatch(askPiece());
+                break;
+        }
     }
 }
 
@@ -43,7 +45,10 @@ export default ({dispatch, errors, match: {params}}) => {
 
     useEffect(() => {
         dispatch(joinRoom(params.player, params.room));
-    }, []);
+        const curriedEvent = handleKey(dispatch);
+        document.addEventListener('keydown', curriedEvent);
+        return () => document.removeEventListener('keydown', curriedEvent);
+    });
 
     return (
         <div onKeyDown={(e) => handleKey(e, dispatch)} tabIndex={0} >
