@@ -1,11 +1,11 @@
 FROM node:10-slim
 
-WORKDIR /opt/
+RUN npx create-react-app /opt/app
 
-RUN npx create-react-app app
+WORKDIR /opt/app
 
-COPY ./package.json ./app
+COPY ./package.json .
 
-RUN npm --prefix /opt/app install
+RUN yarn
 
-CMD npm --prefix /opt/app start
+CMD yarn start
