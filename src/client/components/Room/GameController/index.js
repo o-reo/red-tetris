@@ -2,7 +2,7 @@ import React from 'react';
 
 import PieceView from './PieceView';
 import DisplayInterval from "../../../containers/Room/GameController/DisplayInterval";
-import {startParty, changeInterval} from "../../../actions/room";
+import { startParty, changeInterval} from "../../../actions/room";
 
 const gameControllerStyle = {
     justifySelf: 'end',
@@ -65,7 +65,7 @@ export default ({isRoomLeader, gameIsStarted, firstPiece, secondPiece, thirdPiec
                 <PieceView piece={firstPiece}/>
             </div>
             <p style={{color: 'white'}}>20 1000</p>
-            <input type="range" min="20" max="1000" onClick={sliderHandler}/>
+            <input type="range" min="20" max="1000" onChange={sliderHandler}/>
             <StartButton isRoomLeader={isRoomLeader} gameIsStarted={gameIsStarted} dispatch={dispatch}/>
         </div>);
 }
