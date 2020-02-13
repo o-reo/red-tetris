@@ -8,6 +8,7 @@ const mapStateToProps = (state) => ({
     secondPiece: state.room.pieces[1],
     thirdPiece: state.room.pieces[2],
     gameIsStarted: state.room.gameIsStarted,
+    socket: state.room.socket
 });
 
 const mapDispatchToProps = dispatch => ({ dispatch: dispatch });

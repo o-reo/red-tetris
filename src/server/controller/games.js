@@ -43,12 +43,17 @@ function connectPlayer(socket, data) {
 
     /*
      * Sets the time between each move aka the interval
+     * Emits interval to all players in the room
     */
     socket.on('set interval', (value, callback) => {
         if (socket.id === Object.values(games[data.room].players)[0].socket.id) {
-            console.log("Updating interval");
+            console.log("Updating interval to ", value);
             games[data.room].setInterval(value);
-            callback({interval: games[data.room].interval});
+
+            // did not work
+            // callback({interval: games[data.room].interval});
+            callback({interval: value});
+            socket.to(data.room).emit('update interval', value);
         } else {
             console.log("Interval update unauthorized");
             callback({error: 'unauthorized', interval: games[data.room].interval});
@@ -57,7 +62,7 @@ function connectPlayer(socket, data) {
 
     /*
     * Must see how we handle score
-     * Fires when a piece has been placed
+    * Fires when a piece has been placed
     */
     socket.on('piece placed', (piece_num, callback) => {
         let score = game[data.room].players[data.username].score++;
@@ -66,6 +71,7 @@ function connectPlayer(socket, data) {
 
     /*
      * Fires when the player can't play anymore (piece is out of board)
+     * Might emit to other players as well
     */
     socket.on('player ended', (callback) => {
         game[data.room].players[data.username].ended = true;
@@ -76,9 +82,9 @@ function connectPlayer(socket, data) {
      * Must see if not better to emit interval instead of getting it
      * Returns the time between each move
     */
-    socket.on('get interval', (callback) => {
-        callback({interval: games[data.room].interval});
-    });
+    // socket.on('get interval', (callback) => {
+    //     callback({interval: games[data.room].interval});
+    // });
 
 
     // Broadcast when a opponent joins the room.

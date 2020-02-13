@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 
 import Square from './Square';
 import logo from '../../assets/logo.svg';
-
-
+import {movePiece} from "../../actions/room";
+import {BOTTOM} from "../../utils/direction";
 
 const mainBlockStyle = {
     width: '35vh',
@@ -38,9 +38,14 @@ const boardStyle = {
     borderStyle: 'inset'
 };
 
-export default ({ board }) => {
+export default ({ board, intervalMove, dispatch }) => {
 
     useEffect(() => {
+        const interval = setInterval(() => {
+            dispatch(movePiece(BOTTOM));
+        }, intervalMove);
+
+        return () => clearInterval(interval)
     });
 
 

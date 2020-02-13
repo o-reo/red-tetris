@@ -1,7 +1,8 @@
 import React from 'react';
 
 import PieceView from './PieceView';
-import { startParty } from "../../../actions/room";
+import DisplayInterval from "../../../containers/Room/GameController/DisplayInterval";
+import {startParty, changeInterval} from "../../../actions/room";
 
 const gameControllerStyle = {
     justifySelf: 'end',
@@ -32,7 +33,7 @@ const buttonStyle = {
     borderStyle: 'outset'
 };
 
-function StartButton({ isRoomLeader, gameIsStarted, dispatch }) {
+function StartButton({isRoomLeader, gameIsStarted, dispatch}) {
     return (
         <div>
             {isRoomLeader && gameIsStarted !== true ?
@@ -44,14 +45,27 @@ function StartButton({ isRoomLeader, gameIsStarted, dispatch }) {
     );
 }
 
-export default ({ isRoomLeader, gameIsStarted, firstPiece, secondPiece, thirdPiece, dispatch}) => {
+const handleInterval = (socket, dispatch) => (e) => {
+    socket.emit('set interval', e.target.value, (data) => {
+        if (data.authorizedToLaunchParty !== false) {
+            dispatch(changeInterval(parseInt(data.interval, 10)));
+        }
+    });
+};
+
+
+export default ({isRoomLeader, gameIsStarted, firstPiece, secondPiece, thirdPiece, socket, dispatch}) => {
+    const sliderHandler = handleInterval(socket, dispatch);
     return (
         <div style={gameControllerStyle}>
+            <DisplayInterval/>
             <div>
                 <PieceView piece={thirdPiece}/>
                 <PieceView piece={secondPiece}/>
                 <PieceView piece={firstPiece}/>
             </div>
-            <StartButton isRoomLeader={isRoomLeader} gameIsStarted={gameIsStarted} dispatch={ dispatch }/>
+            <p style={{color: 'white'}}>20 1000</p>
+            <input type="range" min="20" max="1000" onClick={sliderHandler}/>
+            <StartButton isRoomLeader={isRoomLeader} gameIsStarted={gameIsStarted} dispatch={dispatch}/>
         </div>);
 }

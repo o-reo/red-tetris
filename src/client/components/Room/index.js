@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import WebFont from 'webfontloader';
 
 import GameController from '../../containers/Room/GameController';
 import GameWatcher from "../../containers/Room/GameWatcher";
 
-import { joinRoom, movePiece, rotatePiece } from "../../actions/room";
-import { BOTTOM, LEFT, RIGHT, LOWEST } from "../../utils/direction";
+import {joinRoom, movePiece, rotatePiece} from "../../actions/room";
+import {BOTTOM, LEFT, RIGHT, LOWEST} from "../../utils/direction";
 
 import Board from '../../containers/Room/Board';
 import PopUp from './PopUp';
@@ -18,12 +18,9 @@ const gameStyle = {
     justifyContent: 'space-around'
 };
 
-function handleKey(dispatch, interval) {
-    return function(e) {
+function handleKey(dispatch) {
+    return function (e) {
         switch (e.key) {
-            case 'Escape':
-                clearInterval(interval);
-                break;
             case 'ArrowLeft':
                 dispatch(movePiece(LEFT));
                 break;
@@ -39,31 +36,25 @@ function handleKey(dispatch, interval) {
             case 'ArrowUp':
                 dispatch(rotatePiece());
                 break;
-			default:
-				break;
-		}
+            default:
+                break;
+        }
     }
 }
 
-export default ({dispatch, intervalMove, errors, match: {params}}) => {
+export default ({dispatch, errors, match: {params}}) => {
 
     useEffect(() => {
         dispatch(joinRoom(params.player, params.room));
-        const interval = setInterval(() => {
-            dispatch(movePiece(BOTTOM));
-        }, intervalMove);
 
-        const curriedEvent = handleKey(dispatch, interval);
+        const curriedEvent = handleKey(dispatch);
         document.addEventListener('keydown', curriedEvent);
 
-        return () => {
-            document.removeEventListener('keydown', curriedEvent);
-            clearInterval(interval);
-        }
+        return () => document.removeEventListener('keydown', curriedEvent);
     });
 
     return (
-        <div onKeyDown={(e) => handleKey(e, dispatch)} tabIndex={0} >
+        <div onKeyDown={(e) => handleKey(e, dispatch)} tabIndex={0}>
             {errors === null ?
                 <div style={gameStyle}>
                     <GameWatcher/>
