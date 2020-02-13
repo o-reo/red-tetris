@@ -17,4 +17,4 @@ services:
                 ports:
                         - "8080:8080"
                 volumes:
-                        - ./server:/usr/src/app
+                        - ./server:/opt/app/src

@@ -19,64 +19,66 @@ function connectPlayer(socket, data) {
     });
 
     socket.on('update spectrum', (spectrum) => {
-       games[data.room].players[data.username].updateSpectrum(spectrum);
+        games[data.room].players[data.username].updateSpectrum(spectrum);
     });
 
     // Handle pieces fetching
     socket.on('fetch pieces', (from, callback) => {
         console.log('fetching pieces from ' + from);
-		callback({pieces: games[data.room].fetchPieces(from)});
+        callback({pieces: games[data.room].fetchPieces(from)});
     });
 
     // Handle party launching
     socket.on('start party', (callback) => {
         if (socket.id === Object.values(games[data.room].players)[0].socket.id) {
-			console.log('game of room ' + data.room + ' has now started');
+            console.log('game of room ' + data.room + ' has now started');
             callback({authorizedToLaunchParty: true});
-            games[data.room].gameIsStarted = true;i
+            games[data.room].gameIsStarted = true;
             socket.to(data.room).emit('launch party');
         } else {
-			console.log('could not launch game of room ' + data.room);
+            console.log('could not launch game of room ' + data.room);
             callback({authorizedToLaunchParty: false});
         }
     });
-    
-	/*
-	 * Sets the time between each move aka the interval
-	*/
-	socket.on('set interval', (value, callback) => {
+
+    /*
+     * Sets the time between each move aka the interval
+    */
+    socket.on('set interval', (value, callback) => {
         if (socket.id === Object.values(games[data.room].players)[0].socket.id) {
-			console.log("Updating interval");
-			games[data.room].setInterval(value);
-			callback({interval: games[data.room].interval});
-		} else {
-			console.log("Interval update unauthorized");
-			callback({error: 'unauthorized', interval: games[data.room].interval});
+            console.log("Updating interval");
+            games[data.room].setInterval(value);
+            callback({interval: games[data.room].interval});
+        } else {
+            console.log("Interval update unauthorized");
+            callback({error: 'unauthorized', interval: games[data.room].interval});
         }
     });
 
-	/*
-	 * Fires when a piece has been placed
-	*/
-	socket.on('piece placed', (piece_num, callback) => {
-		let score = game[data.room].players[data.username].score++;
-		callback({score: game[data.room].players[data.username].score});
-	});
+    /*
+    * Must see how we handle score
+     * Fires when a piece has been placed
+    */
+    socket.on('piece placed', (piece_num, callback) => {
+        let score = game[data.room].players[data.username].score++;
+        callback({score: game[data.room].players[data.username].score});
+    });
 
-	/*
-	 * Fires when the player can't play anymore (piece is out of board)
-	*/
-	socket.on('player ended', (callback) => {
-		game[data.room].players[data.username].ended = true;
-		callback({end: true, score: game[data.room].players[data.username].score});
-	});
+    /*
+     * Fires when the player can't play anymore (piece is out of board)
+    */
+    socket.on('player ended', (callback) => {
+        game[data.room].players[data.username].ended = true;
+        callback({end: true, score: game[data.room].players[data.username].score});
+    });
 
-	/*
-	 * Returns the time between each move
-	*/
-	socket.on('get interval', (callback) => {
-		callback({interval: games[data.room].interval});
-	});
+    /*
+     * Must see if not better to emit interval instead of getting it
+     * Returns the time between each move
+    */
+    socket.on('get interval', (callback) => {
+        callback({interval: games[data.room].interval});
+    });
 
 
     // Broadcast when a opponent joins the room.
@@ -103,7 +105,7 @@ function checkAvailability(username, room) {
         authData['reasons'] = [];
         //The username is already used in the room.
         if (games[room].players[username]) {
-            authData['reasons'].push({message: 'The username is already used.' , id: 0});
+            authData['reasons'].push({message: 'The username is already used.', id: 0});
         }
         // The board has already been started.
         if (games[room].gameIsStarted === true) {
@@ -137,22 +139,20 @@ function handleRoomConnection(socket) {
         // tryToConnect(socket, data, callback)
         const authData = checkAvailability(data.username, data.room);
         if (authData['canConnect'] === true) {
-            let authData  = {connected: true};
+            let authData = {connected: true};
             if (games[data.room] === undefined) {
                 games[data.room] = new Game(data.room, data.username);
                 authData = {...authData, ...{players: {}, isRoomLeader: true}};
-            }
-            else {
+            } else {
                 authData = {...authData, ...{players: games[data.room].getPlayersInfo(), isRoomLeader: false}};
             }
             connectPlayer(socket, data);
             callback(authData);
-        }
-        else {
+        } else {
             callback({isConnected: false, reasons: authData['reasons']});
             socket.disconnect();
         }
     });
 }
 
-module.exports = { handleRoomConnection: handleRoomConnection };
+module.exports = {handleRoomConnection: handleRoomConnection};

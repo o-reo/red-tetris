@@ -1,6 +1,6 @@
 FROM node:10-slim
 
-WORKDIR /usr/src/app
+WORKDIR /opt/app
 
 RUN yarn
 
