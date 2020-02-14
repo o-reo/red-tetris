@@ -1,7 +1,7 @@
 version: '3'
 services:
         react-app:
-                build: ./client
+                build: src/client
                 environment:
                         - PORT=3000
                         - NODE_ENV=dev
@@ -9,12 +9,12 @@ services:
                 ports:
                         - "3000:3000"
                 volumes:
-                        - ./client:/opt/app/src
-                        - ./client/public/index.html:/opt/app/public/index.html
+                        - ./src/client:/opt/app/src
+                        - ./src/client/public/index.html:/opt/app/public/index.html
 
         server:
-                build: ./server
+                build: src/server
                 ports:
                         - "8080:8080"
                 volumes:
-                        - ./server:/opt/app/src
+                        - ./src/server:/opt/app/src
