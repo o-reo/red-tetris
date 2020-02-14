@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 
 export const checkAvailability = (username, room) => {
     return ((dispatch) => {
-        const socket = io('http://localhost:8080/room');
+        const socket = io(window.location.hostname + ':8080/room');
         socket.on('connect', () => {
             console.log(username + ' wants to join room ' + room);
             socket.emit('check availability', {username: username, room: room}, (data) => {

@@ -6,7 +6,7 @@ Room related Actions
 */
 export const joinRoom = (username, room) => {
     return (dispatch => {
-        const socket = io('http://localhost:8080/room');
+        const socket = io(window.location.hostname + ':8080/room');
         socket.on("connect", () => {
             socket.emit('join room', { username: username, room: room }, (data) => {
                 if (data.connected === true) {
